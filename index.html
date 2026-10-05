@@ -881,6 +881,104 @@ function savedSalaryBRL(c){
   if(hist?.length) return hist.reduce((sum,h)=>sum+(h.salaryBRL ?? toBRL(h.salary||0,historyCurrency(h))),0);
   return toBRL(c.salaryTotal||0, historyCurrency({country:c.clubCountry||c.country}));
 }
+// Faixas de simulação, em BRL/mês, calibradas por status e mercado.
+// Não representam uma tabela oficial de salários individuais.
+const SALARY_RULES={
+  version:2, brazilMinimum:1621,
+  roles:{
+    'Craque do time':{min:600000,target:1000000,max:2500000},
+    'Importante':{min:100000,target:300000,max:900000},
+    'Titular ocasional':{min:50000,target:140000,max:450000},
+    'Compor elenco':{min:15000,target:60000,max:200000},
+    'Reserva':{min:5000,target:25000,max:100000},
+    'Promessa':{min:3000,target:12000,max:40000},
+    'Composição':{min:3000,target:15000,max:60000},
+    'Veterano':{min:2500,target:10000,max:40000}
+  },
+  markets:{
+    'Brasil':{scale:1,cap:3000000,rookie:60000},
+    'Inglaterra':{scale:7,cap:18000000,rookie:400000},
+    'Espanha':{scale:5,cap:15000000,rookie:300000},
+    'Alemanha':{scale:4.5,cap:12000000,rookie:280000},
+    'Itália':{scale:4,cap:10000000,rookie:240000},
+    'França':{scale:4,cap:15000000,rookie:240000},
+    'Portugal':{scale:1.8,cap:5000000,rookie:110000},
+    'Holanda':{scale:1.6,cap:4500000,rookie:100000},
+    'Bélgica':{scale:1.2,cap:2500000,rookie:75000},
+    'Turquia':{scale:2,cap:5000000,rookie:100000},
+    'Rússia':{scale:1.6,cap:4000000,rookie:100000},
+    'Escócia':{scale:1.3,cap:2500000,rookie:80000},
+    'Suíça':{scale:1,cap:2000000,rookie:65000},
+    'Suécia':{scale:.65,cap:1200000,rookie:45000},
+    'Irlanda':{scale:.3,cap:450000,rookie:22000},
+    'Chipre':{scale:.5,cap:900000,rookie:35000},
+    'Argentina':{scale:.65,cap:2200000,rookie:40000},
+    'Uruguai':{scale:.35,cap:800000,rookie:22000},
+    'Chile':{scale:.45,cap:1100000,rookie:28000},
+    'Colômbia':{scale:.45,cap:1100000,rookie:28000},
+    'Equador':{scale:.4,cap:1000000,rookie:26000},
+    'Paraguai':{scale:.3,cap:750000,rookie:22000},
+    'Peru':{scale:.3,cap:650000,rookie:20000},
+    'Bolívia':{scale:.2,cap:450000,rookie:16000},
+    'Venezuela':{scale:.15,cap:300000,rookie:12000},
+    'Estados Unidos':{scale:1.6,cap:15000000,rookie:130000},
+    'Canadá':{scale:.4,cap:550000,rookie:45000},
+    'México':{scale:1.3,cap:4500000,rookie:90000},
+    'Arábia Saudita':{scale:4,cap:100000000,rookie:220000},
+    'Catar':{scale:1.8,cap:14000000,rookie:110000},
+    'Emirados Árabes':{scale:1.6,cap:12000000,rookie:100000},
+    'China':{scale:1.2,cap:4000000,rookie:80000},
+    'Japão':{scale:.65,cap:1800000,rookie:50000},
+    'Coreia do Sul':{scale:.5,cap:1500000,rookie:40000},
+    'Austrália':{scale:.55,cap:2000000,rookie:55000},
+    'Índia':{scale:.25,cap:700000,rookie:20000},
+    'Marrocos':{scale:.25,cap:650000,rookie:22000},
+    'Egito':{scale:.35,cap:1300000,rookie:28000},
+    'África do Sul':{scale:.25,cap:700000,rookie:22000}
+  }
+};
+function computeSalary(league,overall,opts={}){
+  const entry=opts.entry || (player?.club?.league.c===league.c && player.club.league.d===league.d ? player.club : {name:league.cl[0],league});
+  const age=opts.age ?? player?.age ?? 18;
+  const perf=opts.perf ?? player?.history?.at(-1)?._perf ?? .6;
+  const role=opts.role || roleFor(entry,perf,age);
+  const market=SALARY_RULES.markets[league.c] || {scale:.5,cap:1000000,rookie:35000};
+  const chain=DIVISION_CHAIN[league.c];
+  const level=chain ? chain.length-1-chain.indexOf(league.d) : 0;
+  const division=level>0 ? [1,.26,.08,.035][Math.min(3,level)] : 1;
+  const stars=clubStars(entry.name,league);
+  const budget=clamp(.5+stars*.15,.65,1.25)*(entry.name==='Santos'?.85:1);
+  const band=SALARY_RULES.roles[role.name] || SALARY_RULES.roles['Reserva'];
+  const financial=league.c==='Arábia Saudita' && role.name==='Craque do time';
+  const salaryScale=market.scale*division*budget*(financial?3.5:1);
+  const abilityFactor=clamp(1+(overall-(48+stars*8))*.015,.75,1.35);
+  let monthly=band.target*salaryScale*abilityFactor*(.8+perf*.4)*clamp(opts.premium||1,.7,1.8)*rand(.9,1.1);
+  const ceiling=Math.min(market.cap*division,band.max*salaryScale);
+  let floor=league.c==='Brasil'?({'Série A':5000,'Série B':4000,'Série C':2000}[league.d]||SALARY_RULES.brazilMinimum):Math.max(1000,market.rookie*.1*Math.sqrt(division));
+  if(league.c==='Estados Unidos') floor=(age<=24 && role.share<=.5?88025:113400)*MONEY.rates['US$']/12;
+  monthly=clamp(monthly,Math.max(floor,Math.min(band.min*salaryScale,ceiling)),Math.max(floor,ceiling));
+  return Math.round(monthly*12/MONEY.rates[curFor(league.c)]);
+}
+function contractSalary(entry,perf,premium=1,age=player.age+1){
+  return computeSalary(entry.league,player.overall,{entry,perf,premium,age,role:roleFor(entry,perf,age)});
+}
+const RETIREMENT_RULES={startAge:40,chance:.30,maxAge:45};
+function finishRetirement(forced=false){
+  player.age=Math.min(player.age,RETIREMENT_RULES.maxAge);
+  player._retired=true;
+  updateHud();
+  showFinal(forced?'Fim de carreira: aposentadoria obrigatória aos 45 anos.':'Você anunciou a aposentadoria e não disputará a próxima temporada.');
+}
+function checkRetirement(){
+  if(player._retired || player.age>=RETIREMENT_RULES.maxAge){finishRetirement(true);return true;}
+  if(player.age<RETIREMENT_RULES.startAge) return false;
+  // Apenas um sorteio por virada de temporada, sem repetir ao reabrir propostas.
+  if(player._retirementDecisionAge!==player.age){
+    player._retirementDecisionAge=player.age;
+    if(Math.random()<RETIREMENT_RULES.chance){finishRetirement();return true;}
+  }
+  return false;
+}
 const CLUB_STAR_GROUPS = {
   5:['Real Madrid','Barcelona','Atlético de Madrid','Manchester City','Liverpool','Chelsea','Arsenal','Inter de Milão','Juventus','Bayern de Munique','Paris Saint-Germain'],
   4.5:['Manchester United','AC Milan','Borussia Dortmund','Tottenham Hotspur','FC Porto','Benfica','Sporting CP','Flamengo','Palmeiras','River Plate'],
@@ -957,7 +1055,7 @@ function roleFor(entry,perf,age=player.age+1){
   if(age<=21) return {...ROLES.prospect};
   return {...ROLES.reserve};
 }
-function offerDuration(age=player.age+1){ const r=Math.random(); return age>34?(r<.65?1:r<.92?2:3):1+Math.floor(r*3); }
+function offerDuration(age=player.age+1){ const r=Math.random();const years=age>34?(r<.65?1:r<.92?2:3):1+Math.floor(r*3);return Math.min(years,Math.max(1,RETIREMENT_RULES.maxAge-age+1)); }
 function regionName(cf){ return {UEFA:'Europa',CONMEBOL:'América do Sul',CONCACAF:'América do Norte e Central',AFC:'Ásia e Oceania',CAF:'África'}[cf]||'mercado internacional'; }
 const AWARD_RULES={outsideEurope:.07,outsideFiveStars:.20,over35:.15,elite:.40};
 function awardChance(entry,age,perf,titles){
@@ -1319,10 +1417,7 @@ function individualAwards(league, seasonStats, collTitles){
 
 /* ---------------- SALARY / VALUE ---------------- */
 
-function computeSalary(league, overall){
-  const val = Math.pow(league.p,2.5) * 35000 * Math.pow(overall/70,3.4) * rand(0.85,1.2);
-  return Math.round(clamp(val,10000,90000000)*6/MONEY.rates[curFor(league.c)]);
-}
+
 function computeMarketValue(league, overall, age){
   let ageCurve;
   if(age<21) ageCurve = 0.55+(age-18)*0.09;
@@ -1427,6 +1522,7 @@ function handleSponsorTurn(){
 /* ---------------- SEASON DRIVER ---------------- */
 
 function simulateSeason(){
+  if(player._retired || player.age>RETIREMENT_RULES.maxAge || (player.age===RETIREMENT_RULES.maxAge && player.history.some(h=>h.age>=RETIREMENT_RULES.maxAge))){finishRetirement(true);return;}
   initDevelopment();
   const sponsorBonus=player.sponsor && player.sponsor.seasonsLeft>0 ? player.sponsor.ovr : 0;
   player.overall=Math.round(clamp(player._ability+sponsorBonus,40,99));
@@ -1435,7 +1531,7 @@ function simulateSeason(){
   const isYouth=player.age<=YOUTH_END && !player._hadEarlyPromotion;
   if(!isYouth){
     const lastPerf=player.history.at(-1)?._perf ?? .6;
-    if(!player.contract) player.contract={salary:computeSalary(player.club.league,player.overall),currency:curFor(player.club.league.c),years:1,remaining:1};
+    if(!player.contract) player.contract={salary:computeSalary(player.club.league,player.overall,{entry:player.club,age:player.age,perf:lastPerf}),currency:curFor(player.club.league.c),years:1,remaining:1,salaryRulesVersion:SALARY_RULES.version};
     player.contract.role=roleFor(player.club,lastPerf,player.age);
   }
 
@@ -1686,7 +1782,7 @@ function renderSeasonResult(){
   } else if(s.isYouth && player.age === YOUTH_END){
     btn.textContent = "Virar profissional — ver propostas";
   } else {
-    btn.textContent = "Ver propostas";
+    btn.textContent = player.age>=RETIREMENT_RULES.maxAge?"Encerrar carreira":"Ver propostas";
   }
 
   saveCareerSnapshot(false);
@@ -1695,6 +1791,7 @@ function renderSeasonResult(){
 }
 
 document.getElementById("btnToOffers").addEventListener("click", ()=>{
+  if(player._retired || player.age>=RETIREMENT_RULES.maxAge){finishRetirement(true);return;}
   if(pendingSeason.isYouth && pendingSeason.earlyPromotion){
     player._hadEarlyPromotion = true;
     showOffers();
@@ -1720,11 +1817,12 @@ function buildOfferFrom(targetQ,excludeNames,opts={}){
   const weighted=pool.filter(e=>age<=34 || e.league.cf!=='UEFA' || clubStars(e.name,e.league)<4.5 || Math.random()<(age>40?.015:.12));
   if(!weighted.length) return null;
   const entry=pick(weighted), role=roleFor(entry,perf,age);
-  const salary=Math.round(computeSalary(entry.league,player.overall)*(opts.premium||rand(.85,1.15))*(.75+perf*.5));
+  const salary=contractSalary(entry,perf,opts.premium||rand(.85,1.15),age);
   return {...entry,salary,currency:curFor(entry.league.c),years:offerDuration(age),role,
     tag:opts.minQ?'Clube '+clubLabel(entry)+' da '+regionName(entry.league.cf)+' de olho no seu potencial':(opts.tag||'')};
 }
 function showOffers(){
+  if(checkRetirement()) return;
   updateHud();
   if(player._pendingPromotion){player.club={name:player.club.name,league:player._pendingPromotion};player._pendingPromotion=null;}
   const perf=pendingSeason.perf, age=player.age+1;
@@ -1736,7 +1834,7 @@ function showOffers(){
     offers.push({...player.club,salary:current.salary,currency:current.currency,years:current.remaining,role:roleFor(player.club,perf,age),continuation:true,tag:'Cumprir contrato em vigor'});
   }
   if(perf>=.35 || Math.random()<.20){
-    offers.push({...player.club,salary:Math.round(computeSalary(player.club.league,player.overall)*(.75+perf*.5)),currency:curFor(player.club.league.c),years:offerDuration(age),role:roleFor(player.club,perf,age),renewal:true});
+    offers.push({...player.club,salary:contractSalary(player.club,perf,rand(.95,1.08),age),currency:curFor(player.club.league.c),years:offerDuration(age),role:roleFor(player.club,perf,age),renewal:true});
   }
   if(age<=25 && player.overall>=78 && perf>=.65 && Math.random()<.35){
     const o=buildOfferFrom(targetQ,exclude,{minQ:9});if(o){offers.push(o);exclude.add(o.name);}
@@ -1751,21 +1849,24 @@ function showOffers(){
   }
   if(!offers.length){
     const entry=pick(ALL_ENTRIES.filter(e=>clubStars(e.name,e.league)<=3));
-    offers.push({...entry,salary:computeSalary(entry.league,player.overall),currency:curFor(entry.league.c),years:offerDuration(age),role:roleFor(entry,perf,age)});
+    offers.push({...entry,salary:contractSalary(entry,perf,1,age),currency:curFor(entry.league.c),years:offerDuration(age),role:roleFor(entry,perf,age)});
   }
   player._offers=offers;
+  const offerAge=player.age;
   const list=document.getElementById('offersList');list.innerHTML='';
   document.getElementById('offersLead').textContent='Overall '+player.overall+' · '+offers.length+' opções · salários anuais convertidos em reais.';
   for(const o of offers){
     const btn=document.createElement('button');btn.className='offer-card';
     btn.innerHTML='<div class="offer-top"><div><div class="offer-club">'+(o.continuation?'Continuar em ':o.renewal?'Renovar com ':'')+o.name+'</div><div class="offer-country">'+o.league.d+' · '+o.league.c+'</div></div><span class="tier-badge">'+clubLabel(o)+'</span></div>'+
       (o.tag?'<div class="offer-tag">'+o.tag+'</div>':'')+
-      '<div class="offer-terms"><span>'+(o.continuation?'Restam: ':'Contrato: ')+'<b>'+o.years+' temporada'+(o.years>1?'s':'')+'</b></span><span>'+o.role.name+' · '+Math.round(o.role.share*100)+'% de participação prevista</span><span>Salário: <b>'+salaryLabel(o.salary,o.currency)+'</b></span></div>';
+      '<div class="offer-terms"><span>'+(o.continuation?'Restam: ':'Contrato: ')+'<b>'+o.years+' temporada'+(o.years>1?'s':'')+'</b></span><span>'+o.role.name+' · '+Math.round(o.role.share*100)+'% de participação prevista</span><span>Salário: <b>'+salaryLabel(o.salary,o.currency)+'</b><br><small>Equivalente a '+fmtMoney(o.salary/12,o.currency)+' por mês</small></span></div>';
     btn.addEventListener('click',()=>{
+      if(player._retired || player.age>=RETIREMENT_RULES.maxAge){finishRetirement(true);return;}
+      if(player.age!==offerAge) return;
       const changed=player.club.name!==o.name || player.club.league.c!==o.league.c;
       if(changed){player._wonPrimaryLastSeason=false;player._wonPrimaryTwoSeasonsAgo=false;player._wonSecondaryLastSeason=false;player._forcedContinentalPath=null;}
       player.club={name:o.name,league:o.league};
-      player.contract={salary:o.salary,currency:o.currency,years:o.continuation?current.years:o.years,remaining:o.years,role:o.role};
+      player.contract={salary:o.salary,currency:o.currency,years:o.continuation?current.years:o.years,remaining:o.years,role:o.role,salaryRulesVersion:SALARY_RULES.version};
       player.age+=1;handleSponsorTurn();
     });list.appendChild(btn);
   }
@@ -2241,7 +2342,7 @@ const ACHIEVEMENTS = [
   {id:"colecionador", name:"Colecionador de troféus", tier:"especial", desc:"Mais de 46 títulos e prêmios somados na carreira.", check:p=> allTitlesCount(p)>46},
   {id:"pintura", name:"Que pintura", tier:"especial", desc:"Venceu o Prêmio Puskas.", check:p=> (p.titlesIndividual["Prêmio Puskas"]||0)>=1},
   {id:"varios_amores", name:"Vários amores", tier:"prata", desc:"Jogou por mais de 8 clubes diferentes.", check:p=> distinctClubsCount(p)>8},
-  {id:"unico_amor", name:"Meu único amor", tier:"especial", desc:"Jogou por um único clube em toda a carreira.", check:p=> distinctClubsCount(p)===1 && p.totals.games>=900},
+  {id:"unico_amor", name:"Meu único amor", tier:"especial", desc:"Jogou por um único clube em toda a carreira.", check:p=> distinctClubsCount(p)===1 && p.totals.games>=100},
 ];
 
 function loadUnlockedAch(){
