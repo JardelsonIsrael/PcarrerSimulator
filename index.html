@@ -268,6 +268,20 @@ select option{background:#142338;color:var(--ink);}
 @media(max-height:700px){#screen-hub .screen-header{min-height:121px;padding:14px;margin-bottom:8px;}#screen-hub .screen-header .title{font-size:31px!important;}.hub-card{min-height:60px;padding:8px 11px;}.hub-ic{width:36px;height:36px;flex-basis:36px;}.hub-grid{gap:7px;}#screen-start .pitchmark{height:65px;}.screen-header{padding-bottom:7px;}.pos-card{min-height:70px;}.screen h1.title{font-size:29px!important;}.hud{margin-bottom:6px;}.stat-item{padding:8px 4px;}}
 @media(max-height:560px){#app{padding-top:max(6px,env(safe-area-inset-top));}.screen-header .pitchmark{display:none!important;}#screen-hub .screen-header{min-height:88px;padding:10px 13px;}.screen-header .lead{font-size:12px;}.screen h1.title{font-size:25px!important;}.hub-card{min-height:52px;padding:6px 10px;}.hub-s{font-size:11px;}.hub-t{font-size:14px;}.screen-actions{padding-top:6px;}.foot{margin-top:3px;}.pos-grid{grid-template-columns:repeat(3,minmax(0,1fr));}.pos-card{min-height:66px;}#screen-x1-lobby .room-caption{margin-top:3px;}.x1-code{font-size:28px;padding:7px;}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+.training-tools{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;margin:0 0 4px;}
+.training-tools>span{font-size:9px;font-weight:800;color:#7d93a9;letter-spacing:1.7px;}
+.ranking-mode{display:flex;gap:6px;margin:12px 0 0;}.ranking-mode-button{flex:1;min-height:44px;padding:8px 5px;border:1px solid var(--line);border-radius:11px;background:#15283b;color:var(--ink-dim);font-size:12px;font-weight:700;}.ranking-mode-button.active{border-color:var(--green);background:rgba(181,239,107,.11);color:var(--green);}
+.training-mode{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0;padding:0;border:0;}.training-mode legend{font-size:12px;font-weight:700;color:var(--ink-dim);margin-bottom:8px;}.training-mode label{display:flex;gap:8px;align-items:center;min-height:60px;padding:10px;border:1px solid var(--line);border-radius:13px;background:#142338;font-size:13px;font-weight:700;cursor:pointer;}.training-mode label:has(input:checked){border-color:var(--green);background:rgba(181,239,107,.09);}.training-mode input{accent-color:var(--green);width:17px;height:17px;flex:0 0 auto;margin:0;}.training-mode small{display:block;font-size:10px;line-height:1.3;margin-top:4px;color:var(--ink-dim);font-weight:400;}
+.training-launch{min-height:44px;padding:8px 13px;border:1px solid rgba(181,239,107,.25);border-radius:12px;background:rgba(181,239,107,.08);color:var(--green);font-size:12px;font-weight:800;}
+.training-dialog{position:fixed;inset:0;z-index:100;display:flex;justify-content:center;align-items:flex-end;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:rgba(2,8,17,.78);backdrop-filter:blur(7px);}
+.training-sheet{width:100%;max-width:510px;max-height:100%;overflow:auto;overscroll-behavior:contain;background:linear-gradient(135deg,#1b3042,#0f1d30);border:1px solid rgba(181,239,107,.25);border-radius:22px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.4);}
+.training-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;}.training-heading h2{font-size:28px;margin:0;color:var(--ink);}.training-close{min-width:44px;min-height:44px;background:#22374d;border:1px solid var(--line);border-radius:12px;color:var(--ink);font-size:22px;}
+.training-position{font-size:12px;color:var(--green);margin:0 0 12px;overflow-wrap:anywhere;}
+.training-notice{font-size:12px;line-height:1.5;margin:0 0 12px;padding:10px 12px;border-radius:12px;background:rgba(181,239,107,.08);color:var(--ink);}
+.training-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}.training-choices .field-label{margin-top:0;}.training-choices .text-input{font-size:16px;padding:10px 8px;}.training-choices select:disabled{opacity:.55;}
+.training-attributes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}.training-attribute{padding:12px 10px;border:1px solid var(--line);background:rgba(7,17,30,.35);border-radius:13px;}.training-attribute-head{display:flex;justify-content:space-between;gap:6px;align-items:center;font-size:13px;}.training-attribute-head b{font-size:23px;font-family:'Barlow Condensed',sans-serif;color:var(--green);white-space:nowrap;}.training-attribute-head small{font-size:12px;font-weight:400;color:var(--ink-dim);}.training-track{height:5px;background:#293f50;border-radius:6px;margin:10px 0 6px;overflow:hidden;}.training-track span{height:100%;display:block;background:var(--green);border-radius:6px;}.training-fraction{font-size:10px;line-height:1.3;color:var(--ink-dim);}.training-focus{font-size:10px;margin-top:7px;color:var(--green);}.training-season-gain{font-size:12px;line-height:1.4;color:var(--gold);margin:13px 0 6px;}.training-rules{font-size:11px;line-height:1.5;color:var(--ink-dim);margin:0;}
+@media(min-width:700px){.training-dialog{align-items:center;}}
+@media(max-height:560px){.training-sheet{padding:13px;}.training-attribute{padding:8px;}.training-notice{padding:7px;margin-bottom:8px;}.training-heading h2{font-size:25px;}.training-tools{margin-bottom:0;}}
 
 </style>
 </head>
@@ -326,7 +340,7 @@ window.Cloud = {
 window.dispatchEvent(new Event("cloud-ready"));
 </script>
 <body>
-<div id="app">
+<div id="app"><div class="training-tools" id="trainingTools" hidden><span>DESENVOLVIMENTO</span><button class="training-launch" id="trainingLaunch" aria-controls="trainingDialog" aria-expanded="false">Treinos</button></div>
 
   <div class="hud" id="hud">
     <div>Idade <b id="hudAge">—</b></div>
@@ -366,6 +380,7 @@ window.dispatchEvent(new Event("cloud-ready"));
 <p class="lead">Comece na base, conquiste seu espaço e decida seu futuro a cada temporada.</p></div><div class="screen-body" id="screen-start-body" tabindex="0" aria-label="Conteúdo da tela"><label class="field-label" for="playerName">Nome do jogador</label>
 <input type="text" autocomplete="nickname" class="text-input" id="playerName" placeholder="Nome do jogador" maxlength="24">
 <p style="color:var(--ink-dim);font-size:11.5px;line-height:1.4;margin:-8px 0 14px;">Use um nome que seus amigos reconheçam no ranking.</p>
+<fieldset class="training-mode"><legend>Como você quer evoluir?</legend><label><input type="radio" name="careerTrainingMode" id="careerWithTraining" value="on" checked><span>Com treino<small>Desempenho + atributos</small></span></label><label><input type="radio" name="careerTrainingMode" id="careerWithoutTraining" value="off"><span>Sem treino<small>Evolução por desempenho</small></span></label></fieldset>
 <p id="x1PosNote" style="display:none;color:var(--gold);font-weight:700;font-size:14px;margin:-8px 0 14px;"></p></div><div class="screen-actions"><button class="btn" id="btnToPosition">Começar carreira</button></div></section>
 
   <section class="screen" id="screen-position"><div class="screen-header"><p class="eyebrow">Passo 1 de 3</p>
@@ -519,7 +534,7 @@ window.dispatchEvent(new Event("cloud-ready"));
 <p class="eyebrow">Todo mundo que já jogou</p>
 <h1 class="title" style="font-size:30px;">Ranking global</h1>
 <p class="lead" id="rkLead">Escolha um quesito.</p>
-<div class="rk-tabs" id="rkTabs"></div></div><div class="screen-body" id="screen-ranking-body" tabindex="0" aria-label="Conteúdo da tela"><div id="rkList"></div></div></section>
+<div class="ranking-mode" role="group" aria-label="Filtrar ranking por uso de treino"><button class="ranking-mode-button active" id="rankModeAll" data-training-mode="all" aria-pressed="true">Todos</button><button class="ranking-mode-button" id="rankModeWith" data-training-mode="with" aria-pressed="false">Com treino</button><button class="ranking-mode-button" id="rankModeWithout" data-training-mode="without" aria-pressed="false">Sem treino</button></div><div class="rk-tabs" id="rkTabs"></div></div><div class="screen-body" id="screen-ranking-body" tabindex="0" aria-label="Conteúdo da tela"><div id="rkList"></div></div></section>
 
   <!-- ---------------- SALA DE TROFÉUS ---------------- -->
   <section class="screen" id="screen-achievements"><div class="screen-header"><button class="btn ghost hub-back" id="backFromAchievements">◀ Menu</button>
@@ -582,7 +597,7 @@ window.dispatchEvent(new Event("cloud-ready"));
     </div></div></div><div class="screen-actions"><button class="btn" id="x1BtnRematch">Nova sala</button>
 <button class="btn ghost" id="x1BtnToHub">Menu principal</button></div></section>
 
-  <div class="x1-timer" id="x1Timer">⏱ 5:00</div>
+  <div class="training-dialog" id="trainingDialog" role="dialog" aria-modal="true" aria-labelledby="trainingTitle" hidden><div class="training-sheet"><div class="training-heading"><h2 id="trainingTitle">Plano de treino</h2><button class="training-close" id="trainingClose" aria-label="Fechar treinos">×</button></div><p class="training-position" id="trainingPosition"></p><p class="training-notice" id="trainingNotice" role="status" aria-live="polite"></p><div class="training-choices"><div><label class="field-label" for="trainingPrimary">Primário · +0,5</label><select class="text-input" id="trainingPrimary"></select></div><div><label class="field-label" for="trainingSecondary">Secundário · +0,25</label><select class="text-input" id="trainingSecondary"></select></div></div><div class="training-attributes" id="trainingAttributes"></div><p class="training-season-gain" id="trainingSeasonGain"></p><p class="training-rules">Cada ponto inteiro: até OVR 70, +3; de 71 a 75, +2; de 76 a 84, +1. O treino chega no máximo a 85. Frações ficam guardadas, mesmo ao trocar o foco. Dois atributos diferentes por temporada.</p></div></div><div class="x1-timer" id="x1Timer">⏱ 5:00</div>
 
   <footer class="foot">MODO CARREIRA <span>•</span> Simulação de futebol</footer>
 </div>
@@ -792,6 +807,7 @@ POSITIONS.forEach(p=>{
     card.classList.add("selected");
     selectedPos = p;
     syncPositionLock();
+    updateTrainingLauncher("screen-position");
     document.getElementById("btnConfirmPosition").disabled = false;
   });
   posGrid.appendChild(card);
@@ -1564,6 +1580,7 @@ function simulateSeason(){
   player.overall=Math.round(clamp(player._ability+sponsorBonus,40,99));
   player._sponsorTempBonus=0;
   player._sponsorActiveBonus=sponsorBonus;
+  const trainingResult=applySeasonTraining();
   const isYouth=player.age<=YOUTH_END && !player._hadEarlyPromotion;
   if(!isYouth){
     const lastPerf=player.history.at(-1)?._perf ?? .6;
@@ -1656,14 +1673,14 @@ function simulateSeason(){
     age: player.age, games: raw.games, goals: raw.goals, assists: raw.assists,
     yellow: raw.yellow, red: raw.red, motm: raw.motm, cleanSheets: raw.cleanSheets||0,
     avgRating: raw.avgRating, overall: player.overall,
-    coll: displayCollClub, ind: ind, results, salary, salaryBRL, currency, value, isYouth, stars:clubStars(player.club.name,player.club.league), role:isYouth?null:{...player.contract.role}, positionStats:POSITION_RULES[player.pos.code].label+": "+raw[POSITION_RULES[player.pos.code].metric],
+    coll: displayCollClub, ind: ind, results, salary, salaryBRL, currency, value, isYouth, training:trainingResult, stars:clubStars(player.club.name,player.club.league), role:isYouth?null:{...player.contract.role}, positionStats:POSITION_RULES[player.pos.code].label+": "+raw[POSITION_RULES[player.pos.code].metric],
     wonBallonDor: ind.includes("Bola de Ouro"),
     nt: ntResult ? {games:ntResult.games, goals:ntResult.goals, assists:ntResult.assists, coll:collNT} : null,
     _perf: perf
   });
 
   const earlyPromotion = isYouth && player.age < YOUTH_END && raw.avgRating >= 7.5;
-  pendingSeason = {raw, perf, salary, salaryBRL, currency, value, collClub:displayCollClub, collNT, collAll, ind, results, isYouth, nt:ntResult, earlyPromotion};
+  pendingSeason = {raw, perf, salary, salaryBRL, currency, value, training:trainingResult, collClub:displayCollClub, collNT, collAll, ind, results, isYouth, nt:ntResult, earlyPromotion};
   renderSeasonResult();
 }
 
@@ -1990,6 +2007,8 @@ function showFinal(message){
 }
 
 function resetCareerState(){
+  trainingPreferences=null;
+  document.getElementById("trainingDialog").hidden=true;
   player = null; selectedPos = null;
   document.getElementById("playerName").value = "";
   document.querySelectorAll(".pos-card").forEach(c=>c.classList.remove("selected"));
@@ -2069,7 +2088,7 @@ async function saveCareerSnapshot(retired){
     titlesClubCount: totalCount(player.titlesClub),
     titlesNTCount: totalCount(player.titlesNT),
     titlesIndividualCount: totalCount(player.titlesIndividual),
-    salaryTotal: t.salary, financeVersion:MONEY.version,
+    salaryTotal: t.salary, financeVersion:MONEY.version, trainingEnabled:!!initTraining().enabled,
     avgRating: t.ratingGames ? +(t.ratingSum/t.ratingGames).toFixed(2) : 0,
     retired: !!retired,
     createdAt: player._createdAt || Date.now(),
@@ -2257,14 +2276,14 @@ function renderRankingList(){
   const lead = document.getElementById("rkLead");
   const list = document.getElementById("rkList");
   list.innerHTML = "";
-  let pool = rankingCache || [];
+  let pool = filterRankingTraining(rankingCache || []);
   if(cat.filter) pool = pool.filter(cat.filter);
   const sorted = pool.slice().sort((a,b)=>{
     const diff = (cat.get(a)-cat.get(b)) * cat.dir;
     if(diff !== 0) return diff;
     return rankingTiebreak(a,b);
   }).slice(0,20);
-  lead.textContent = cat.label + " — top 20 de todo mundo.";
+  lead.textContent = cat.label + " — top 20 · " + ({all:"todos os modos",with:"com treino",without:"sem treino"}[rankingTrainingMode]) + ".";
   if(!sorted.length){
     list.innerHTML = '<div class="rk-empty">Ninguém se qualificou nesse quesito ainda.</div>';
     return;
@@ -2276,7 +2295,7 @@ function renderRankingList(){
       <div class="rk-pos">${i+1}º</div>
       <div class="rk-info">
         <div class="rk-name">${c.playerName}</div>
-        <div class="rk-sub">${c.posName} · ${c.country}</div>
+        <div class="rk-sub">${c.posName} · ${c.country} · ${careerUsesTraining(c)?"Com treino":"Sem treino"}</div>
       </div>
       <div class="rk-val">${cat.fmt(cat.get(c), c)}</div>`;
     list.appendChild(row);
@@ -2852,6 +2871,132 @@ document.getElementById("x1BtnToHub").addEventListener("click", ()=>{
   showScreen("screen-hub");
 });
 
+/* Training uses integer quarter-points to preserve unfinished progress exactly. */
+const TRAINING_ATTRIBUTES={
+  GOL:['Reflexo','Saída','Elasticidade','Defesas'],
+  LAT:['Marcação','Cruzamentos','Posicionamento','Velocidade'],
+  ZAG:['Marcação','Desarme','Posicionamento','Força'],
+  VOL:['Marcação','Desarme','Força','Passe'],
+  MEI:['Passe','Drible','Chute','Visão'],
+  PON:['Velocidade','Drible','Passe','Cruzamento'],
+  ATA:['Chute','Cabeceio','Drible','Frieza']
+};
+let rankingTrainingMode='all';
+function careerUsesTraining(career){
+  if(typeof career.trainingEnabled==='boolean')return career.trainingEnabled;
+  return career.fullPlayer && career.fullPlayer.training && career.fullPlayer.training.enabled===true || false;
+}
+function filterRankingTraining(pool){return rankingTrainingMode==='all'?pool:pool.filter(career=>careerUsesTraining(career)===(rankingTrainingMode==='with'));}
+function setRankingTrainingMode(mode){
+  if(!['all','with','without'].includes(mode))return;
+  rankingTrainingMode=mode;
+  document.querySelectorAll('[data-training-mode]').forEach(button=>{
+    const active=button.dataset.trainingMode===mode;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));
+  });
+  renderRankingList();
+}
+document.querySelectorAll('[data-training-mode]').forEach(button=>button.addEventListener('click',()=>setRankingTrainingMode(button.dataset.trainingMode)));
+let trainingPreferences=null;
+function initTraining(){
+  if(!player)return null;
+  if(!player.training || player.training.position!==player.pos.code){
+    const preference=trainingPreferences && trainingPreferences.position===player.pos.code?trainingPreferences:null;
+    player.training={enabled:document.getElementById('careerWithTraining').checked!==false,position:player.pos.code,quarters:[0,0,0,0],primary:preference?preference.primary:0,secondary:preference?preference.secondary:1,lastAge:null};
+  }
+  return player.training;
+}
+function trainingGainFor(overall){return overall>=85?0:overall<=70?3:overall<=75?2:1;}
+function applySeasonTraining(){
+  const training=initTraining(),result={enabled:training.enabled,gain:0,completed:[],primary:training.primary,secondary:training.secondary,paused:!training.enabled || player.overall>=85};
+  // A redraw, reopened panel or repeated call never grants another season's points.
+  if(training.lastAge===player.age)return {...result,duplicate:true};
+  training.lastAge=player.age;
+  if(result.paused)return result;
+  for(const [index,quarters]of [[training.primary,2],[training.secondary,1]]){
+    if(player.overall>=85)break;
+    const before=training.quarters[index],after=Math.min(40,before+quarters);
+    training.quarters[index]=after;
+    const points=Math.floor(after/4)-Math.floor(before/4);
+    for(let i=0;i<points;i++){
+      const gain=Math.min(trainingGainFor(player.overall),85-player.overall);
+      if(!gain)break;
+      player._ability+=gain;
+      // Training must never disappear when the natural potential ceiling is applied.
+      player._potential=Math.max(player._potential,player._ability);
+      player.overall+=gain;result.gain+=gain;
+      result.completed.push(TRAINING_ATTRIBUTES[player.pos.code][index]);
+    }
+  }
+  return result;
+}
+function trainingStateForUI(){
+  const position=player?player.pos.code:selectedPos && selectedPos.code;
+  if(!position)return null;
+  if(player)return initTraining();
+  if(!trainingPreferences || trainingPreferences.position!==position)trainingPreferences={position,primary:0,secondary:1};
+  return {...trainingPreferences,quarters:[0,0,0,0]};
+}
+function chooseTrainingFocus(kind,index){
+  const state=trainingStateForUI();if(!state || (player && (!state.enabled || player.overall>=85)))return;
+  index=Number(index);if(!Number.isInteger(index)||index<0||index>3)return;
+  const other=kind==='primary'?'secondary':'primary';if(kind!=='primary'&&kind!=='secondary')return;
+  if(state[other]===index)state[other]=state[kind];
+  state[kind]=index;
+  if(player){player.training.primary=state.primary;player.training.secondary=state.secondary;}
+  else trainingPreferences={position:state.position,primary:state.primary,secondary:state.secondary};
+  renderTrainingPanel();
+}
+function updateTrainingLauncher(screenId){
+  const screens=['screen-position','screen-country','screen-clubpick','screen-start','screen-result','screen-offers','screen-sponsor'];
+  const enabled=player?initTraining().enabled:document.getElementById('careerWithTraining').checked!==false;
+  const visible=enabled&&!!trainingStateForUI()&&screens.includes(screenId);
+  const row=document.getElementById('trainingTools');row.hidden=!visible;
+  document.getElementById('trainingLaunch').textContent=player && player.overall>=85?'Treino no máximo':'Treinos';
+  if(screenId!=='screen-result'&&screenId!=='screen-offers'&&screenId!=='screen-sponsor'&&player)row.hidden=true;
+  if(!document.getElementById('trainingDialog').hidden)renderTrainingPanel();
+}
+function renderTrainingPanel(){
+  const state=trainingStateForUI();if(!state)return;
+  const capped=!!player && player.overall>=85,attributes=TRAINING_ATTRIBUTES[state.position];
+  document.getElementById('trainingPosition').textContent=state.position+' · '+(player?player.name:'Seu jogador');
+  for(const kind of ['primary','secondary']){
+    const select=document.getElementById('training'+(kind==='primary'?'Primary':'Secondary'));
+    select.innerHTML=attributes.map((label,i)=>'<option value="'+i+'">'+label+'</option>').join('');
+    select.value=String(state[kind]);select.disabled=capped;
+  }
+  document.getElementById('trainingNotice').textContent=capped?'Treino no máximo, overall só subirá com base no desempenho':(player?'Escolhas para a próxima temporada.':'Escolha os focos da primeira temporada.')+' Primário +0,5; secundário +0,25. Só pontos inteiros aumentam o overall.';
+  const grid=document.getElementById('trainingAttributes');grid.innerHTML='';
+  attributes.forEach((label,index)=>{
+    const value=state.quarters[index],whole=Math.floor(value/4),fraction=(value%4)/4;
+    const card=document.createElement('div');card.className='training-attribute';
+    const role=index===state.primary?'Primário · +0,5':index===state.secondary?'Secundário · +0,25':'Em pausa';
+    card.innerHTML='<div class="training-attribute-head"><span>'+label+'</span><b>'+whole+'<small>/10</small></b></div><div class="training-track" role="progressbar" aria-label="'+label+'" aria-valuemin="0" aria-valuemax="10" aria-valuenow="'+value/4+'"><span style="width:'+value/40*100+'%"></span></div><div class="training-fraction">'+(value===40?'Atributo completo':fraction.toFixed(2).replace('.',',')+' / 1 para o próximo ponto')+'</div><div class="training-focus">'+role+'</div>';
+    grid.appendChild(card);
+  });
+  const earned=player && pendingSeason && pendingSeason.training?pendingSeason.training.gain:0;
+  document.getElementById('trainingSeasonGain').textContent=player?(earned?'Nesta temporada: +'+earned+' de overall pelo treino.':'Nesta temporada: nenhum ponto inteiro convertido em overall.'):'O progresso começa ao simular a primeira temporada.';
+}
+function openTrainingPanel(){
+  if(!trainingStateForUI() || (player && !initTraining().enabled))return;
+  renderTrainingPanel();const dialog=document.getElementById('trainingDialog');dialog.hidden=false;
+  document.getElementById('trainingLaunch').setAttribute('aria-expanded','true');document.getElementById('trainingClose').focus();
+}
+function closeTrainingPanel(){document.getElementById('trainingDialog').hidden=true;document.getElementById('trainingLaunch').setAttribute('aria-expanded','false');document.getElementById('trainingLaunch').focus();}
+document.getElementById('trainingLaunch').addEventListener('click',openTrainingPanel);
+document.getElementById('trainingClose').addEventListener('click',closeTrainingPanel);
+document.getElementById('trainingPrimary').addEventListener('change',event=>chooseTrainingFocus('primary',event.target.value));
+document.getElementById('trainingSecondary').addEventListener('change',event=>chooseTrainingFocus('secondary',event.target.value));
+for(const id of ['careerWithTraining','careerWithoutTraining'])document.getElementById(id).addEventListener('change',()=>updateTrainingLauncher(document.getElementById('app').dataset.screen||'screen-start'));
+document.getElementById('trainingDialog').addEventListener('click',event=>{if(event.target===document.getElementById('trainingDialog'))closeTrainingPanel();});
+document.getElementById('trainingDialog').addEventListener('keydown',event=>{
+  if(event.key==='Escape'){event.preventDefault();closeTrainingPanel();return;}
+  if(event.key!=='Tab')return;
+  const controls=[document.getElementById('trainingClose'),document.getElementById('trainingPrimary'),document.getElementById('trainingSecondary')].filter(el=>!el.disabled);
+  const first=controls[0],last=controls[controls.length-1];
+  if(event.shiftKey && document.activeElement===first){event.preventDefault();last.focus();}
+  else if(!event.shiftKey && document.activeElement===last){event.preventDefault();first.focus();}
+});
+
 /* Mobile navigation and X1 invitations, embedded in the single HTML. */
 function setViewTab(screenId,index){
   const buttons=document.querySelectorAll('[data-view="'+screenId+'"]');
@@ -2872,9 +3017,12 @@ function syncPositionLock(){
   });
 }
 function mobileScreenChanged(id){
+  document.getElementById('trainingDialog').hidden=true;
+  document.getElementById('trainingLaunch').setAttribute('aria-expanded','false');
   const body=document.getElementById(id+'-body');if(body)body.scrollTop=0;
   setViewTab(id,0);
   syncPositionLock();
+  updateTrainingLauncher(id);
   const empty=document.getElementById('ntEmpty'),card=document.getElementById('ntCard');
   if(empty)empty.hidden=card.style.display!=='none';
   if(id==='screen-result'){
