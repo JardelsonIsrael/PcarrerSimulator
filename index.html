@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Modo Carreira</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -179,6 +179,96 @@ footer.foot{text-align:center;color:var(--ink-dim);font-size:11.5px;margin-top:2
 .vs-header{display:flex;justify-content:space-between;font-weight:800;font-size:16px;margin-top:6px;}
 
 .offer-terms{flex-wrap:wrap;gap:8px;line-height:1.6}.offer-terms span:last-child{flex-basis:100%}.offer-tag{color:var(--gold);font-size:12px;margin:6px 0}.money-row b{max-width:66%;text-align:right}.tier-badge{color:var(--gold);white-space:nowrap}
+/* Stadium-inspired mobile shell. Long content scrolls inside the screen. */
+:root{--bg:#080f1b;--card:#142338;--ink:#f0f5fb;--ink-dim:#a8bbd2;--line:rgba(162,190,223,.17);--gold:#f5cc70;--green:#b5ef6b;}
+html{height:100%;overflow:hidden;}
+body{height:100%;min-height:0;overflow:hidden;background:radial-gradient(ellipse at 10% 0,rgba(102,165,112,.17),transparent 48%),radial-gradient(ellipse at 100% 30%,rgba(64,111,180,.18),transparent 50%),#080f1b;}
+button,input,select,textarea{font:inherit;touch-action:manipulation;}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent;}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--green);outline-offset:3px;}
+[hidden]{display:none!important;}
+#app{position:relative;box-sizing:border-box;width:100%;max-width:540px;height:100vh;height:100dvh;min-height:0;padding:max(12px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));overflow:hidden;}
+.screen{min-height:0;overflow:hidden;gap:0;animation:mobileIn .22s ease-out;}
+.screen-header{flex:0 0 auto;position:relative;padding:4px 2px 10px;}
+.screen-body{flex:1 1 0;min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#365572 transparent;padding:3px 3px 12px;overflow-wrap:anywhere;}
+.screen-body:focus{outline:none;}.screen-body:focus-visible{outline:2px solid var(--green);outline-offset:-2px;}
+.screen-actions{flex:0 0 auto;display:flex;flex-direction:column;gap:4px;padding:10px 2px 0;background:linear-gradient(180deg,rgba(8,15,27,.84),#080f1b);border-top:1px solid var(--line);}
+.screen-actions:has(>button[style*="display:none"]:only-child){display:none;}
+.eyebrow{font-size:10px;letter-spacing:2.1px;color:var(--green);margin:0 0 5px;font-weight:800;text-transform:uppercase;}
+.screen h1.title{font-size:clamp(28px,7.5vw,38px)!important;line-height:1.02;letter-spacing:.15px;margin:0 0 7px;text-wrap:balance;overflow-wrap:anywhere;}
+.lead{font-size:14px;line-height:1.4;margin:0!important;color:var(--ink-dim);}
+.screen-header .lead{max-width:47ch;}
+.hud{flex-shrink:0;border-radius:12px;margin-bottom:10px;background:rgba(18,35,54,.85);padding:10px 12px;border:1px solid var(--line);font-size:12px;min-height:40px;gap:10px;}
+.hud .club-chip{max-width:70%;text-align:right;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--green);}
+#app .hud{display:none;}#app[data-screen="screen-result"] .hud.show,#app[data-screen="screen-offers"] .hud.show,#app[data-screen="screen-sponsor"] .hud.show{display:flex;}
+.btn{border-radius:14px;min-height:48px;padding:12px 16px;font-size:15px;background:linear-gradient(110deg,#b5ef6b,#d0f9a0);color:#12230f;box-shadow:0 5px 20px rgba(144,199,74,.08);}
+.btn.secondary{background:rgba(32,53,75,.58);border-color:rgba(180,212,247,.25);color:var(--ink);box-shadow:none;}
+.btn.ghost{min-height:44px;padding:9px 12px;box-shadow:none;}
+.hub-back{width:auto;text-align:left;margin:0 0 8px;padding:0 8px!important;min-height:44px!important;font-size:13px!important;}
+.field-label{display:block;font-size:12px;font-weight:700;color:var(--ink-dim);margin:12px 0 7px;}
+.text-input{font-size:16px;min-height:48px;padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:#142338;color:var(--ink);margin-bottom:12px;max-width:100%;box-sizing:border-box;}
+select option{background:#142338;color:var(--ink);}
+#screen-hub .screen-header{min-height:155px;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;padding:20px 18px 18px;margin:2px 3px 12px;border:1px solid rgba(181,239,107,.22);border-radius:22px;background:linear-gradient(120deg,#162b27,#12233b);overflow:hidden;}
+#screen-hub .screen-header .title{max-width:260px;font-size:36px!important;}
+#screen-hub .pitchmark{position:absolute;z-index:-1;right:-44px;top:-4px;width:255px;height:170px;aspect-ratio:auto;transform:rotate(-18deg);opacity:.46;margin:0;border-radius:12px;}
+#screen-hub .screen-header::after{content:'';position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(10,25,27,.4),transparent),radial-gradient(ellipse at 10% 0,rgba(210,255,160,.2),transparent 65%);}
+.hub-grid{gap:8px;}
+.hub-card{position:relative;min-height:66px;padding:10px 13px;border-radius:16px;background:linear-gradient(110deg,rgba(26,46,65,.96),rgba(18,32,51,.92));border:1px solid var(--line);gap:12px;transition:background .15s,transform .15s;}
+.hub-card::after{content:'›';font-size:25px;color:#7190ab;margin-left:auto;}
+.hub-card:hover{border-color:rgba(181,239,107,.4);background:#213a4c;transform:translateY(-1px);}
+.hub-ic{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:13px;background:rgba(144,176,214,.09);color:#a9c3e1;font-size:22px;}
+.hub-ic svg{width:25px;height:25px;}
+#hubNewCareer{border-color:rgba(181,239,107,.37);background:linear-gradient(105deg,#203831,#162936);}
+#hubNewCareer .hub-ic{background:rgba(181,239,107,.13);color:var(--green);}
+.hub-online .hub-ic{background:rgba(119,162,255,.15);color:#a7c4ff;}
+.hub-online .hub-t{color:#a7c4ff;}
+.hub-t{font-size:16px;line-height:1.25;}.hub-s{font-size:12px;line-height:1.35;margin-top:3px;}
+.hub-txt{min-width:0;}
+#screen-start .pitchmark{height:90px;aspect-ratio:auto;margin:0 0 12px;border-radius:17px;}
+#screen-start .title br{display:none;}
+#screen-start .screen-header .title{font-size:34px!important;}
+.pos-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0;}
+.pos-card{min-height:80px;padding:10px 12px;text-align:left;border-radius:14px;background:linear-gradient(130deg,#192c40,#122236);position:relative;}
+.pos-card .pos-code{display:inline-block;color:var(--green);font-size:11px;letter-spacing:1.4px;font-weight:800;}
+.pos-name{font-size:16px;margin:3px 0 0;}.pos-desc{display:none;}
+.pos-card.selected{border-color:var(--green);background:linear-gradient(120deg,#294134,#1a3438);box-shadow:inset 0 0 0 1px var(--green);}
+.pos-card.selected::after{content:'✓';position:absolute;right:12px;top:11px;color:var(--green);font-size:16px;}
+.pos-card:disabled{opacity:.4;cursor:not-allowed;}
+.club-grid{gap:8px;}.club-card{min-height:62px;padding:12px 13px;border-radius:14px;background:linear-gradient(115deg,#1b3045,#142338);}
+.club-card .cn{font-size:16px;}.club-card .cc{font-size:12px;line-height:1.4;margin-top:3px;}
+.stat-card,.final-card{padding:14px;border-radius:17px;background:linear-gradient(130deg,#192d42,#132238);border:1px solid var(--line);margin:0 0 10px;box-shadow:0 8px 22px rgba(0,0,0,.09);}
+.stat-card h3{font-size:14px;letter-spacing:.3px;margin:0 0 12px;color:#e5edf7;}
+.stat-card h3 small{font-size:11px;display:block;margin-top:3px;}
+.stat-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+.stat-item{min-width:0;background:rgba(7,17,31,.25);padding:10px 5px;border-radius:10px;text-align:center;}
+.stat-item .num{font-size:25px;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums;}.stat-item .lbl{font-size:11px;line-height:1.3;margin-top:5px;}
+.money-row{font-size:13px;line-height:1.4;gap:12px;padding:9px 0;}.money-row span{flex:1;min-width:0;}.money-row b{flex:1;min-width:0;max-width:63%;overflow-wrap:anywhere;}
+.view-tabs,.rk-tabs{display:flex;flex-wrap:nowrap;gap:5px;overflow-x:auto;scrollbar-width:none;padding:6px 0 1px;margin:8px 0 0;}
+.view-tab{flex:1;min-width:0;min-height:44px;border:1px solid transparent;background:rgba(22,39,57,.8);border-radius:10px;padding:9px 3px;color:var(--ink-dim);font-size:12px;font-weight:700;}
+.view-tab.active{background:rgba(181,239,107,.12);border-color:rgba(181,239,107,.4);color:var(--green);}
+.season-strip{display:flex;align-items:center;gap:12px;font-size:11px;color:var(--ink-dim);margin:6px 0 0;}.season-strip>span:first-child{flex:0 0 auto;padding:4px 9px;border-radius:8px;background:rgba(181,239,107,.11);color:var(--green);}.season-strip b{font-size:17px;margin-left:3px;}.season-strip>span:last-child{min-width:0;overflow-wrap:anywhere;}
+#app.keyboard-open .screen-header .pitchmark,#app.keyboard-open .screen-header .lead{display:none;}#app.keyboard-open .screen-header .title{font-size:25px!important;}
+.rk-tab{flex:0 0 auto;min-height:44px;padding:9px 12px;font-size:12px;border-radius:12px;}.rk-tab.active{background:rgba(181,239,107,.12);color:var(--green);border-color:var(--green);}
+.rk-row{padding:12px 10px;gap:8px;border-radius:13px;margin-bottom:7px;background:#142338;}.rk-name{font-size:14px;}.rk-sub{font-size:11px;}.rk-val{max-width:40%;font-size:12px;overflow-wrap:anywhere;}.rk-pos{min-width:25px;font-size:16px;}
+.empty-state,.rk-empty{padding:22px 14px;border:1px dashed var(--line);border-radius:15px;color:var(--ink-dim);font-size:14px;line-height:1.5;}
+.ach-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}.ach-sq{min-height:148px;padding:14px 10px;gap:7px;background:radial-gradient(ellipse at top,rgba(245,204,112,.1),transparent);}.ach-sq-ic{font-size:30px;}.ach-sq-n{font-size:14px;line-height:1.2;}.ach-sq-d{font-size:11px;line-height:1.4;}.ach-grid .rk-empty{grid-column:1/-1;}
+.chips{gap:6px;}.chip{font-size:11px;border-radius:9px;padding:6px 8px;line-height:1.3;}
+.offer-card{border-radius:17px;padding:14px;margin-bottom:9px;background:linear-gradient(125deg,#1c3046,#122336);}.offer-club{font-size:18px;}.offer-terms{font-size:12px;line-height:1.45;}.offer-head{gap:10px;}.tier-badge{font-size:12px;}
+.timeline-item{gap:10px;padding:12px 0;}.timeline-club{font-size:14px;}.timeline-years{font-size:11px;line-height:1.5;}
+.room-caption{text-align:center;color:var(--ink-dim);font-size:10px;font-weight:800;letter-spacing:2px;margin-top:12px;}
+.x1-code{font-size:38px;letter-spacing:6px;padding:14px 6px;margin:8px 0 12px;background:linear-gradient(110deg,#203934,#142c3e);color:var(--green);border-color:rgba(181,239,107,.3);}
+.share-button{margin-bottom:8px;}.share-status{font-size:12px;line-height:1.4;color:var(--green);margin:0 0 8px;}.share-status:empty{display:none;}.invite-manual{height:120px;font-size:13px;}
+.x1-status{font-size:13px;line-height:1.4;margin:8px 0 12px;}.vs-header{font-size:16px;gap:12px;}.vs-header span{max-width:46%;overflow-wrap:anywhere;}.vs-table{font-size:12px;margin:8px 0;}.vs-table td{padding:8px 3px;}
+.x1-timer{position:absolute;top:max(12px,env(safe-area-inset-top));right:max(18px,env(safe-area-inset-right));z-index:2;padding:6px 10px;border-radius:10px;font-size:12px;background:#243744;border-color:var(--green);pointer-events:none;}
+#app.x1-running{padding-top:calc(max(12px,env(safe-area-inset-top)) + 35px);}
+.foot{flex:0 0 auto;margin:7px 0 0;font-size:9px;line-height:1.2;letter-spacing:.7px;color:#7d93a9;text-align:center;padding:3px 0;}.foot span{color:var(--green);padding:0 6px;}
+.ach-toast{max-width:calc(100% - 32px);bottom:calc(86px + env(safe-area-inset-bottom));pointer-events:none;}
+@keyframes mobileIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:700px){#app{padding-top:25px;padding-bottom:18px;}body{background-color:#070d16;}#app::before{content:'';position:absolute;inset:0;z-index:-1;background:rgba(9,19,33,.7);border-left:1px solid var(--line);border-right:1px solid var(--line);}.screen h1.title{font-size:36px!important;}}
+@media(max-height:700px){#screen-hub .screen-header{min-height:121px;padding:14px;margin-bottom:8px;}#screen-hub .screen-header .title{font-size:31px!important;}.hub-card{min-height:60px;padding:8px 11px;}.hub-ic{width:36px;height:36px;flex-basis:36px;}.hub-grid{gap:7px;}#screen-start .pitchmark{height:65px;}.screen-header{padding-bottom:7px;}.pos-card{min-height:70px;}.screen h1.title{font-size:29px!important;}.hud{margin-bottom:6px;}.stat-item{padding:8px 4px;}}
+@media(max-height:560px){#app{padding-top:max(6px,env(safe-area-inset-top));}.screen-header .pitchmark{display:none!important;}#screen-hub .screen-header{min-height:88px;padding:10px 13px;}.screen-header .lead{font-size:12px;}.screen h1.title{font-size:25px!important;}.hub-card{min-height:52px;padding:6px 10px;}.hub-s{font-size:11px;}.hub-t{font-size:14px;}.screen-actions{padding-top:6px;}.foot{margin-top:3px;}.pos-grid{grid-template-columns:repeat(3,minmax(0,1fr));}.pos-card{min-height:66px;}#screen-x1-lobby .room-caption{margin-top:3px;}.x1-code{font-size:28px;padding:7px;}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+
 </style>
 </head>
 <script type="module">
@@ -243,78 +333,56 @@ window.dispatchEvent(new Event("cloud-ready"));
     <div class="club-chip" id="hudClub">—</div>
   </div>
 
-  <section class="screen active" id="screen-hub">
-    <div class="pitchmark"></div>
-    <p class="eyebrow">Modo Carreira</p>
-    <h1 class="title" style="font-size:34px;">Bem-vindo de volta.</h1>
-    <p class="lead">Escolha o que fazer agora.</p>
-    <div class="hub-grid">
+  <section class="screen active" id="screen-hub"><div class="screen-header"><div class="pitchmark"></div>
+<p class="eyebrow">Modo Carreira</p>
+<h1 class="title" style="font-size:34px;">Seu futebol. Sua história.</h1>
+<p class="lead">Da base à glória. Cada temporada conta.</p></div><div class="screen-body" id="screen-hub-body" tabindex="0" aria-label="Conteúdo da tela"><div class="hub-grid">
       <button class="hub-card" id="hubNewCareer">
-        <span class="hub-ic">🆕</span>
+        <span class="hub-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 7v7c0 4 8 7 8 7s8-3 8-7V7z"/><path d="m8 12 3 3 5-6"/></svg></span>
         <span class="hub-txt"><span class="hub-t">Nova carreira</span><span class="hub-s">Comece do zero, da base à aposentadoria</span></span>
       </button>
       <button class="hub-card" id="hubMyCareers">
-        <span class="hub-ic">📂</span>
+        <span class="hub-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h7l2 2h9v11H3z"/><path d="M3 7V4h7l2 3"/></svg></span>
         <span class="hub-txt"><span class="hub-t">Ver carreiras</span><span class="hub-s">Carreiras salvas neste aparelho</span></span>
       </button>
       <button class="hub-card hub-online" id="hubX1">
-        <span class="hub-ic">⚔️</span>
+        <span class="hub-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 3 13 13-3 3L3 6zM20 3l-6 6M9 14l-4 5M13 19l6-6M5 15l4 4M17 16l3 4"/></svg></span>
         <span class="hub-txt"><span class="hub-t">X1</span><span class="hub-s">Modo online — 1 contra 1, 5 minutos</span></span>
       </button>
       <button class="hub-card" id="hubAchievements">
-        <span class="hub-ic">🏆</span>
+        <span class="hub-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10v5c0 5-10 5-10 0zM7 5H3v3c0 3 4 3 4 3M17 5h4v3c0 3-4 3-4 3M12 12v7M7 21h10M9 19h6"/></svg></span>
         <span class="hub-txt"><span class="hub-t">Sala de conquistas</span><span class="hub-s">Suas conquistas desbloqueadas neste aparelho</span></span>
       </button>
       <button class="hub-card" id="hubRanking">
-        <span class="hub-ic">🌎</span>
+        <span class="hub-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c6 6 6 12 0 18-6-6-6-12 0-18"/></svg></span>
         <span class="hub-txt"><span class="hub-t">Ranking global</span><span class="hub-s">Os melhores jogadores de todo mundo</span></span>
       </button>
-    </div>
-  </section>
+    </div></div></section>
 
-  <section class="screen" id="screen-start">
-    <button class="btn ghost hub-back" id="backFromStart">◀ Menu</button>
-    <div class="pitchmark"></div>
-    <p class="eyebrow">Modo Carreira</p>
-    <h1 class="title">Sua trajetória<br>no futebol.</h1>
-    <p class="lead">Escolha uma posição, um país de base e viva sua carreira ano a ano — da Copinha até a aposentadoria, decidindo cada proposta que chega.</p>
-    <input type="text" class="text-input" id="playerName" placeholder="Nome do jogador" maxlength="24">
-    <p style="color:var(--ink-dim);font-size:11.5px;line-height:1.4;margin:-8px 0 14px;">Coloque nomes completos ou observações que te ajudem a ser identificado — ajuda a te diferenciar no ranking global em caso de nomes parecidos.</p>
-    <p id="x1PosNote" style="display:none;color:var(--gold);font-weight:700;font-size:14px;margin:-8px 0 14px;"></p>
-    <div class="spacer"></div>
-    <button class="btn" id="btnToPosition">Começar carreira</button>
-  </section>
+  <section class="screen" id="screen-start"><div class="screen-header"><button class="btn ghost hub-back" id="backFromStart">◀ Menu</button>
+<div class="pitchmark"></div>
+<p class="eyebrow">Modo Carreira</p>
+<h1 class="title">Sua trajetória<br>no futebol.</h1>
+<p class="lead">Comece na base, conquiste seu espaço e decida seu futuro a cada temporada.</p></div><div class="screen-body" id="screen-start-body" tabindex="0" aria-label="Conteúdo da tela"><label class="field-label" for="playerName">Nome do jogador</label>
+<input type="text" autocomplete="nickname" class="text-input" id="playerName" placeholder="Nome do jogador" maxlength="24">
+<p style="color:var(--ink-dim);font-size:11.5px;line-height:1.4;margin:-8px 0 14px;">Use um nome que seus amigos reconheçam no ranking.</p>
+<p id="x1PosNote" style="display:none;color:var(--gold);font-weight:700;font-size:14px;margin:-8px 0 14px;"></p></div><div class="screen-actions"><button class="btn" id="btnToPosition">Começar carreira</button></div></section>
 
-  <section class="screen" id="screen-position">
-    <p class="eyebrow">Passo 1 de 3</p>
-    <h1 class="title" style="font-size:30px;">Escolha sua posição</h1>
-    <p class="lead" style="margin-bottom:16px;">Define seu estilo de jogo e como as estatísticas se formam.</p>
-    <div class="pos-grid" id="posGrid"></div>
-    <div class="spacer"></div>
-    <button class="btn" id="btnConfirmPosition" disabled>Continuar</button>
-  </section>
+  <section class="screen" id="screen-position"><div class="screen-header"><p class="eyebrow">Passo 1 de 3</p>
+<h1 class="title" style="font-size:30px;">Escolha sua posição</h1>
+<p class="lead" style="margin-bottom:16px;">Define seu estilo de jogo e como as estatísticas se formam.</p></div><div class="screen-body" id="screen-position-body" tabindex="0" aria-label="Conteúdo da tela"><div class="pos-grid" id="posGrid"></div></div><div class="screen-actions"><button class="btn" id="btnConfirmPosition" disabled>Continuar</button></div></section>
 
-  <section class="screen" id="screen-country">
-    <p class="eyebrow">Passo 2 de 3</p>
-    <h1 class="title" style="font-size:30px;">Sua nacionalidade</h1>
-    <p class="lead" style="margin-bottom:16px;">Sua base é sempre no Brasil, na Copinha. A nacionalidade só define por qual seleção você pode jogar no futuro.</p>
-    <select class="text-input" id="countrySelect"></select>
-    <div class="spacer"></div>
-    <button class="btn" id="btnConfirmCountry">Ver clubes da base</button>
-  </section>
+  <section class="screen" id="screen-country"><div class="screen-header"><p class="eyebrow">Passo 2 de 3</p>
+<h1 class="title" style="font-size:30px;">Sua nacionalidade</h1>
+<p class="lead" style="margin-bottom:16px;">Sua base é sempre no Brasil, na Copinha. A nacionalidade só define por qual seleção você pode jogar no futuro.</p></div><div class="screen-body" id="screen-country-body" tabindex="0" aria-label="Conteúdo da tela"><label class="field-label" for="countrySelect">Seleção que você pode representar</label>
+<select class="text-input" id="countrySelect"></select></div><div class="screen-actions"><button class="btn" id="btnConfirmCountry">Ver clubes da base</button></div></section>
 
-  <section class="screen" id="screen-clubpick">
-    <p class="eyebrow">Passo 3 de 3</p>
-    <h1 class="title" style="font-size:28px;" id="clubPickTitle">Escolha seu clube</h1>
-    <p class="lead" style="margin-bottom:14px;" id="clubPickLead">—</p>
-    <div class="club-grid" id="clubGrid"></div>
-  </section>
+  <section class="screen" id="screen-clubpick"><div class="screen-header"><p class="eyebrow">Passo 3 de 3</p>
+<h1 class="title" style="font-size:28px;" id="clubPickTitle">Escolha seu clube</h1>
+<p class="lead" style="margin-bottom:14px;" id="clubPickLead">—</p></div><div class="screen-body" id="screen-clubpick-body" tabindex="0" aria-label="Conteúdo da tela"><div class="club-grid" id="clubGrid"></div></div></section>
 
-  <section class="screen" id="screen-result">
-    <p class="eyebrow" id="resultEyebrow">Fim de temporada</p>
-    <h1 class="title" style="font-size:28px;" id="resultTitle">—</h1>
-
-    <div class="stat-card">
+  <section class="screen" id="screen-result"><div class="screen-header"><p class="eyebrow" id="resultEyebrow">Fim de temporada</p>
+<h1 class="title" style="font-size:28px;" id="resultTitle">—</h1><div class="season-strip"><span>OVR <b id="seasonQuickOverall">60</b></span><span id="seasonQuickRole">—</span></div><div class="view-tabs" role="tablist" aria-label="Detalhes"><button class="view-tab active" id="screen-result-tab-0" role="tab" aria-controls="screen-result-pane-0" aria-selected="true" tabindex="0" data-view="screen-result" data-pane="0">Temporada</button><button class="view-tab" id="screen-result-tab-1" role="tab" aria-controls="screen-result-pane-1" aria-selected="false" tabindex="-1" data-view="screen-result" data-pane="1">Jogador</button><button class="view-tab" id="screen-result-tab-2" role="tab" aria-controls="screen-result-pane-2" aria-selected="false" tabindex="-1" data-view="screen-result" data-pane="2">Seleção</button><button class="view-tab" id="screen-result-tab-3" role="tab" aria-controls="screen-result-pane-3" aria-selected="false" tabindex="-1" data-view="screen-result" data-pane="3">Carreira</button></div></div><div class="screen-body" id="screen-result-body" tabindex="0" aria-label="Conteúdo da tela"><div class="view-pane" id="screen-result-pane-0" role="tabpanel" aria-labelledby="screen-result-tab-0"><div class="stat-card">
       <h3>Nesta temporada</h3>
       <div class="stat-grid">
         <div class="stat-item"><div class="num" id="sGames">0</div><div class="lbl">Jogos</div></div>
@@ -337,9 +405,18 @@ window.dispatchEvent(new Event("cloud-ready"));
         <div style="font-size:12px;color:var(--ink-dim);margin-bottom:6px;">Títulos individuais</div>
         <div class="chips" id="sTitlesInd"></div>
       </div>
-    </div>
-
-    <div class="stat-card" id="ntCard" style="display:none;">
+    </div></div>
+<div class="view-pane" id="screen-result-pane-1" role="tabpanel" aria-labelledby="screen-result-tab-1" hidden><div class="stat-card">
+      <h3>Financeiro e overall</h3>
+      <div class="money-row"><span>Overall atual</span><b id="sOverall">60</b></div>
+      <div class="money-row"><span>Nível do clube</span><b id="sClubStars">—</b></div>
+      <div class="money-row"><span>Status no elenco</span><b id="sRole">—</b></div>
+      <div class="money-row"><span id="sPositionLabel">Estatística da função</span><b id="sPositionStat">—</b></div>
+      <div class="money-row"><span>Salário da temporada</span><b id="sSalary">—</b></div>
+      <div class="money-row"><span>Valor de mercado</span><b id="sValue">—</b></div>
+      <div class="money-row" id="sSponsorRow" style="display:none;"><span>Patrocinador</span><b id="sSponsor">—</b></div>
+    </div></div>
+<div class="view-pane" id="screen-result-pane-2" role="tabpanel" aria-labelledby="screen-result-tab-2" hidden><div class="stat-card" id="ntCard" style="display:none;">
       <h3 id="ntTitle">Seleção</h3>
       <div class="stat-grid">
         <div class="stat-item"><div class="num" id="ntGames">0</div><div class="lbl">Jogos</div></div>
@@ -350,20 +427,8 @@ window.dispatchEvent(new Event("cloud-ready"));
         <div style="font-size:12px;color:var(--ink-dim);margin-bottom:6px;">Títulos pela seleção</div>
         <div class="chips" id="ntTitlesChips"></div>
       </div>
-    </div>
-
-    <div class="stat-card">
-      <h3>Financeiro e overall</h3>
-      <div class="money-row"><span>Overall atual</span><b id="sOverall">60</b></div>
-      <div class="money-row"><span>Nível do clube</span><b id="sClubStars">—</b></div>
-      <div class="money-row"><span>Status no elenco</span><b id="sRole">—</b></div>
-      <div class="money-row"><span id="sPositionLabel">Estatística da função</span><b id="sPositionStat">—</b></div>
-      <div class="money-row"><span>Salário da temporada</span><b id="sSalary">—</b></div>
-      <div class="money-row"><span>Valor de mercado</span><b id="sValue">—</b></div>
-      <div class="money-row" id="sSponsorRow" style="display:none;"><span>Patrocinador</span><b id="sSponsor">—</b></div>
-    </div>
-
-    <div class="stat-card">
+    </div><p id="ntEmpty" class="empty-state">Sem participação pela seleção nesta temporada.</p></div>
+<div class="view-pane" id="screen-result-pane-3" role="tabpanel" aria-labelledby="screen-result-tab-3" hidden><div class="stat-card">
       <h3>Acumulado na carreira<small>desde a base</small></h3>
       <div class="stat-grid">
         <div class="stat-item"><div class="num" id="aGames">0</div><div class="lbl">Jogos</div></div>
@@ -377,32 +442,18 @@ window.dispatchEvent(new Event("cloud-ready"));
       <div class="money-row"><span>Títulos coletivos (carreira)</span><b id="aTitlesColl">0</b></div>
       <div class="money-row"><span>Títulos individuais (carreira)</span><b id="aTitlesInd">0</b></div>
       <div class="money-row"><span>Jogos pela seleção (carreira)</span><b id="aNtGames">0</b></div>
-    </div>
+    </div></div></div><div class="screen-actions"><button class="btn" id="btnToOffers">Ver propostas</button></div></section>
 
-    <div class="spacer"></div>
-    <button class="btn" id="btnToOffers">Ver propostas</button>
-  </section>
+  <section class="screen" id="screen-offers"><div class="screen-header"><p class="eyebrow">Janela de transferências</p>
+<h1 class="title" style="font-size:28px;">Escolha seu próximo passo</h1>
+<p class="lead" id="offersLead">—</p></div><div class="screen-body" id="screen-offers-body" tabindex="0" aria-label="Conteúdo da tela"><div id="offersList"></div></div><div class="screen-actions"><button class="btn ghost" id="btnRetire" style="display:none;">Encerrar carreira agora</button></div></section>
 
-  <section class="screen" id="screen-offers">
-    <p class="eyebrow">Janela de transferências</p>
-    <h1 class="title" style="font-size:28px;">Escolha seu próximo passo</h1>
-    <p class="lead" id="offersLead">—</p>
-    <div id="offersList"></div>
-    <button class="btn ghost" id="btnRetire" style="display:none;">Encerrar carreira agora</button>
-  </section>
+  <section class="screen" id="screen-sponsor"><div class="screen-header"><p class="eyebrow">Patrocínio</p>
+<h1 class="title" style="font-size:28px;">Uma marca quer te patrocinar</h1>
+<p class="lead">Contrato de 10 temporadas. Overall e bônus salarial valem enquanto o patrocínio estiver ativo.</p></div><div class="screen-body" id="screen-sponsor-body" tabindex="0" aria-label="Conteúdo da tela"><div class="club-grid" id="sponsorList"></div></div><div class="screen-actions"><button class="btn ghost" id="sponsorSkip">Não assinar agora</button></div></section>
 
-  <section class="screen" id="screen-sponsor">
-    <p class="eyebrow">Patrocínio</p>
-    <h1 class="title" style="font-size:28px;">Uma marca quer te patrocinar</h1>
-    <p class="lead">O bônus de overall vale só nesta temporada; o bônus de salário vale em cada temporada do contrato (5 no total).</p>
-    <div class="club-grid" id="sponsorList"></div>
-    <button class="btn ghost" id="sponsorSkip">Não assinar agora</button>
-  </section>
-
-  <section class="screen" id="screen-final">
-    <p class="eyebrow">Fim de carreira</p>
-    <h1 class="title" style="font-size:30px;" id="finalTitle">—</h1>
-    <div class="final-card">
+  <section class="screen" id="screen-final"><div class="screen-header"><p class="eyebrow">Fim de carreira</p>
+<h1 class="title" style="font-size:30px;" id="finalTitle">—</h1><div class="view-tabs" role="tablist" aria-label="Detalhes"><button class="view-tab active" id="screen-final-tab-0" role="tab" aria-controls="screen-final-pane-0" aria-selected="true" tabindex="0" data-view="screen-final" data-pane="0">Resumo</button><button class="view-tab" id="screen-final-tab-1" role="tab" aria-controls="screen-final-pane-1" aria-selected="false" tabindex="-1" data-view="screen-final" data-pane="1">Troféus</button><button class="view-tab" id="screen-final-tab-2" role="tab" aria-controls="screen-final-pane-2" aria-selected="false" tabindex="-1" data-view="screen-final" data-pane="2">Seleção</button><button class="view-tab" id="screen-final-tab-3" role="tab" aria-controls="screen-final-pane-3" aria-selected="false" tabindex="-1" data-view="screen-final" data-pane="3">Histórico</button></div></div><div class="screen-body" id="screen-final-body" tabindex="0" aria-label="Conteúdo da tela"><div class="view-pane" id="screen-final-pane-0" role="tabpanel" aria-labelledby="screen-final-tab-0"><div class="final-card">
       <div class="stat-grid">
         <div class="stat-item"><div class="num" id="fGames">0</div><div class="lbl">Jogos na carreira</div></div>
         <div class="stat-item"><div class="num" id="fGoals">0</div><div class="lbl">Gols na carreira</div></div>
@@ -414,14 +465,14 @@ window.dispatchEvent(new Event("cloud-ready"));
       </div>
       <div class="money-row" style="margin-top:10px;"><span>Total arrecadado na carreira</span><b id="fSalary">—</b></div>
       <div class="money-row"><span>Overall de pico</span><b id="fPeak">—</b></div>
-    </div>
-    <div class="stat-card">
+    </div></div>
+<div class="view-pane" id="screen-final-pane-1" role="tabpanel" aria-labelledby="screen-final-tab-1" hidden><div class="stat-card">
       <h3>Sala de troféus<small>títulos pelo clube</small></h3>
       <div id="fTitlesColl"></div>
       <div style="font-size:12px;color:var(--ink-dim);margin:14px 0 6px;">Individuais</div>
       <div class="chips" id="fTitlesInd"></div>
-    </div>
-    <div class="stat-card" id="fNtStats">
+    </div></div>
+<div class="view-pane" id="screen-final-pane-2" role="tabpanel" aria-labelledby="screen-final-tab-2" hidden><div class="stat-card" id="fNtStats">
       <h3>Seleção<small id="fNtCountryLabel">Carreira pela seleção</small></h3>
       <div class="stat-grid">
         <div class="stat-item"><div class="num" id="fNtGamesCard">0</div><div class="lbl">Jogos</div></div>
@@ -432,131 +483,108 @@ window.dispatchEvent(new Event("cloud-ready"));
         <div style="font-size:12px;color:var(--ink-dim);margin-bottom:6px;">Títulos pela seleção</div>
         <div class="chips" id="fNtTitles"></div>
       </div>
-    </div>
-    <div class="stat-card">
+    </div></div>
+<div class="view-pane" id="screen-final-pane-3" role="tabpanel" aria-labelledby="screen-final-tab-3" hidden><div class="stat-card">
       <h3>Linha do tempo</h3>
       <div id="fTimeline"></div>
-    </div>
-    <button class="btn secondary" id="btnReplay">Jogar outra carreira</button>
-    <button class="btn ghost" id="btnFinalToHub">Menu principal</button>
-  </section>
+    </div></div></div><div class="screen-actions"><button class="btn secondary" id="btnReplay">Jogar outra carreira</button>
+<button class="btn ghost" id="btnFinalToHub">Menu principal</button></div></section>
 
   <!-- ---------------- VER CARREIRAS ---------------- -->
-  <section class="screen" id="screen-mycareers">
-    <button class="btn ghost hub-back" id="backFromMyCareers">◀ Menu</button>
-    <p class="eyebrow">Carreiras salvas</p>
-    <h1 class="title" style="font-size:30px;">Suas carreiras</h1>
-    <p class="lead" id="mcLead">Carregando…</p>
-    <div id="mcList"></div>
-  </section>
+  <section class="screen" id="screen-mycareers"><div class="screen-header"><button class="btn ghost hub-back" id="backFromMyCareers">◀ Menu</button>
+<p class="eyebrow">Carreiras salvas</p>
+<h1 class="title" style="font-size:30px;">Suas carreiras</h1>
+<p class="lead" id="mcLead">Carregando…</p></div><div class="screen-body" id="screen-mycareers-body" tabindex="0" aria-label="Conteúdo da tela"><div id="mcList"></div></div></section>
 
-  <section class="screen" id="screen-career-detail">
-    <button class="btn ghost hub-back" id="backFromDetail">◀ Voltar</button>
-    <p class="eyebrow" id="cdEyebrow">Carreira</p>
-    <h1 class="title" style="font-size:28px;" id="cdTitle">—</h1>
-    <div class="stat-card">
+  <section class="screen" id="screen-career-detail"><div class="screen-header"><button class="btn ghost hub-back" id="backFromDetail">◀ Voltar</button>
+<p class="eyebrow" id="cdEyebrow">Carreira</p>
+<h1 class="title" style="font-size:28px;" id="cdTitle">—</h1><div class="view-tabs" role="tablist" aria-label="Detalhes"><button class="view-tab active" id="screen-career-detail-tab-0" role="tab" aria-controls="screen-career-detail-pane-0" aria-selected="true" tabindex="0" data-view="screen-career-detail" data-pane="0">Resumo</button><button class="view-tab" id="screen-career-detail-tab-1" role="tab" aria-controls="screen-career-detail-pane-1" aria-selected="false" tabindex="-1" data-view="screen-career-detail" data-pane="1">Histórico</button></div></div><div class="screen-body" id="screen-career-detail-body" tabindex="0" aria-label="Conteúdo da tela"><div class="view-pane" id="screen-career-detail-pane-0" role="tabpanel" aria-labelledby="screen-career-detail-tab-0"><div class="stat-card">
       <h3>Resumo</h3>
       <div class="stat-grid" id="cdStats"></div>
       <div class="money-row"><span>Salário acumulado</span><b id="cdSalary">—</b></div>
       <div class="money-row"><span>Overall de pico</span><b id="cdPeak">—</b></div>
       <div class="money-row"><span>Títulos coletivos</span><b id="cdTitlesColl">—</b></div>
       <div class="money-row"><span>Prêmios individuais</span><b id="cdTitlesInd">—</b></div>
-    </div>
-    <div class="stat-card">
+    </div></div>
+<div class="view-pane" id="screen-career-detail-pane-1" role="tabpanel" aria-labelledby="screen-career-detail-tab-1" hidden><div class="stat-card">
       <h3>Linha do tempo</h3>
       <div id="cdTimeline"></div>
-    </div>
-  </section>
+    </div></div></div></section>
 
   <!-- ---------------- RANKING GLOBAL ---------------- -->
-  <section class="screen" id="screen-ranking">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
+  <section class="screen" id="screen-ranking"><div class="screen-header"><div style="display:flex;justify-content:space-between;align-items:center;">
       <button class="btn ghost hub-back" id="backFromRanking" style="margin-bottom:0;">◀ Menu</button>
       <button class="btn ghost" id="rkBtnClear" style="width:auto;padding:8px 10px;font-size:12px;color:var(--red);">Limpar ranking</button>
     </div>
-    <p class="eyebrow">Todo mundo que já jogou</p>
-    <h1 class="title" style="font-size:30px;">Ranking global</h1>
-    <p class="lead" id="rkLead">Escolha um quesito.</p>
-    <div class="rk-tabs" id="rkTabs"></div>
-    <div id="rkList"></div>
-  </section>
+<p class="eyebrow">Todo mundo que já jogou</p>
+<h1 class="title" style="font-size:30px;">Ranking global</h1>
+<p class="lead" id="rkLead">Escolha um quesito.</p>
+<div class="rk-tabs" id="rkTabs"></div></div><div class="screen-body" id="screen-ranking-body" tabindex="0" aria-label="Conteúdo da tela"><div id="rkList"></div></div></section>
 
   <!-- ---------------- SALA DE TROFÉUS ---------------- -->
-  <section class="screen" id="screen-achievements">
-    <button class="btn ghost hub-back" id="backFromAchievements">◀ Menu</button>
-    <p class="eyebrow">Sala de troféus</p>
-    <h1 class="title" style="font-size:30px;">Conquistas</h1>
-    <p class="lead" id="achCount">Conquistados 0/0</p>
-    <div class="ach-grid" id="achGrid"></div>
-  </section>
+  <section class="screen" id="screen-achievements"><div class="screen-header"><button class="btn ghost hub-back" id="backFromAchievements">◀ Menu</button>
+<p class="eyebrow">Sala de troféus</p>
+<h1 class="title" style="font-size:30px;">Conquistas</h1>
+<p class="lead" id="achCount">Conquistados 0/0</p></div><div class="screen-body" id="screen-achievements-body" tabindex="0" aria-label="Conteúdo da tela"><div class="ach-grid" id="achGrid"></div></div></section>
 
   <!-- ---------------- X1 ---------------- -->
-  <section class="screen" id="screen-x1-home">
-    <button class="btn ghost hub-back" id="backFromX1Home">◀ Menu</button>
-    <p class="eyebrow">Modo online · 1 contra 1</p>
-    <h1 class="title" style="font-size:32px;">X1</h1>
-    <p class="lead">Entre na mesma sala que um amigo e disputem quem constrói a melhor carreira em 5 minutos.</p>
-    <input type="text" class="text-input" id="x1PlayerName" placeholder="Seu nome" maxlength="24">
-    <button class="btn" id="x1BtnHost">Criar sala (host)</button>
-    <button class="btn secondary" id="x1BtnShowJoin" style="margin-top:10px;">Entrar com código</button>
-    <div id="x1JoinBox" style="display:none;margin-top:12px;">
-      <input type="text" class="text-input" id="x1JoinCode" placeholder="Código da sala" maxlength="6" style="text-transform:uppercase;">
+  <section class="screen" id="screen-x1-home"><div class="screen-header"><button class="btn ghost hub-back" id="backFromX1Home">◀ Menu</button>
+<p class="eyebrow">Modo online · 1 contra 1</p>
+<h1 class="title" style="font-size:32px;">X1</h1>
+<p class="lead">Entre na mesma sala que um amigo e disputem quem constrói a melhor carreira em 5 minutos.</p></div><div class="screen-body" id="screen-x1-home-body" tabindex="0" aria-label="Conteúdo da tela"><label class="field-label" for="x1PlayerName">Seu nome na partida</label>
+<input type="text" autocomplete="nickname" class="text-input" id="x1PlayerName" placeholder="Seu nome" maxlength="24">
+<button class="btn" id="x1BtnHost">Criar sala (host)</button>
+<button class="btn secondary" id="x1BtnShowJoin" style="margin-top:10px;">Entrar com código</button>
+<div id="x1JoinBox" style="display:none;margin-top:12px;">
+      <label class="field-label" for="x1JoinCode">Código do convite</label><input type="text" autocapitalize="characters" autocomplete="off" spellcheck="false" class="text-input" id="x1JoinCode" placeholder="Código da sala" maxlength="6" style="text-transform:uppercase;">
       <button class="btn" id="x1BtnJoin">Entrar na sala</button>
     </div>
-    <p class="x1-status" id="x1HomeError"></p>
-  </section>
+<p class="x1-status" id="x1HomeError" role="status" aria-live="polite"></p></div></section>
 
-  <section class="screen" id="screen-x1-lobby">
-    <p class="eyebrow">Sala X1</p>
-    <h1 class="title" style="font-size:28px;">Aguardando…</h1>
-    <div class="x1-code" id="x1CodeDisplay">——————</div>
-    <p class="x1-status" id="x1LobbyStatus">Compartilhe esse código com seu adversário.</p>
-    <div class="stat-card" id="x1HostOptions" style="display:none;">
+  <section class="screen" id="screen-x1-lobby"><div class="screen-header"><p class="eyebrow">Sala X1</p>
+<h1 class="title" style="font-size:28px;">Aguardando…</h1></div><div class="screen-body" id="screen-x1-lobby-body" tabindex="0" aria-label="Conteúdo da tela"><div class="room-caption">CÓDIGO DA PARTIDA</div>
+<div class="x1-code" id="x1CodeDisplay">——————</div>
+<button class="btn secondary share-button" id="x1BtnShare" disabled>Compartilhar partida</button>
+<p class="share-status" id="x1ShareStatus" role="status" aria-live="polite"></p>
+<textarea class="invite-manual text-input" id="x1InviteManual" aria-label="Convite para copiar" readonly hidden></textarea>
+<p class="x1-status" id="x1LobbyStatus" role="status" aria-live="polite">Compartilhe esse código com seu adversário.</p>
+<div class="stat-card" id="x1HostOptions" style="display:none;">
       <h3>Configurações do host</h3>
       <p class="lead" style="margin-bottom:10px;">Como vai ser decidida a posição dos dois?</p>
-      <select class="text-input" id="x1PosMode">
+      <label class="field-label" for="x1PosMode">Posição dos dois jogadores</label><select class="text-input" id="x1PosMode">
         <option value="random">Posição aleatória (o jogo sorteia)</option>
         <option value="fixed">Posição definida por mim</option>
       </select>
-      <select class="text-input" id="x1PosFixed" style="display:none;"></select>
-    </div>
-    <button class="btn" id="x1BtnStart" style="display:none;" disabled>Iniciar partida</button>
-    <button class="btn ghost" id="x1BtnCancel">Cancelar e voltar ao menu</button>
-  </section>
+      <select aria-label="Posição definida para a partida" class="text-input" id="x1PosFixed" style="display:none;"></select>
+    </div></div><div class="screen-actions"><button class="btn" id="x1BtnStart" style="display:none;" disabled>Iniciar partida</button>
+<button class="btn ghost" id="x1BtnCancel">Cancelar e voltar ao menu</button></div></section>
 
-  <section class="screen" id="screen-x1-waiting">
-    <p class="eyebrow">Sua carreira terminou</p>
-    <h1 class="title" style="font-size:28px;">Aguardando o adversário…</h1>
-    <p class="lead">Assim que o outro jogador terminar (ou o tempo acabar), o resultado aparece automaticamente.</p>
-    <div class="stat-card">
+  <section class="screen" id="screen-x1-waiting"><div class="screen-header"><p class="eyebrow">Sua carreira terminou</p>
+<h1 class="title" style="font-size:28px;">Aguardando o adversário…</h1>
+<p class="lead">Assim que o outro jogador terminar (ou o tempo acabar), o resultado aparece automaticamente.</p></div><div class="screen-body" id="screen-x1-waiting-body" tabindex="0" aria-label="Conteúdo da tela"><div class="stat-card">
       <h3>Seu resultado final</h3>
       <div class="stat-grid" id="x1WaitStats"></div>
-    </div>
-  </section>
+    </div></div></section>
 
-  <section class="screen" id="screen-x1-result">
-    <p class="eyebrow">Fim de X1</p>
-    <h1 class="title" style="font-size:30px;" id="x1ResultTitle">—</h1>
-    <div class="final-card">
+  <section class="screen" id="screen-x1-result"><div class="screen-header"><p class="eyebrow">Fim de X1</p>
+<h1 class="title" style="font-size:30px;" id="x1ResultTitle">—</h1><div class="view-tabs" role="tablist" aria-label="Detalhes"><button class="view-tab active" id="screen-x1-result-tab-0" role="tab" aria-controls="screen-x1-result-pane-0" aria-selected="true" tabindex="0" data-view="screen-x1-result" data-pane="0">Placar</button><button class="view-tab" id="screen-x1-result-tab-1" role="tab" aria-controls="screen-x1-result-pane-1" aria-selected="false" tabindex="-1" data-view="screen-x1-result" data-pane="1">Troféus</button></div></div><div class="screen-body" id="screen-x1-result-body" tabindex="0" aria-label="Conteúdo da tela"><div class="view-pane" id="screen-x1-result-pane-0" role="tabpanel" aria-labelledby="screen-x1-result-tab-0"><div class="final-card">
       <div class="vs-header"><span id="x1NameA">—</span><span id="x1NameB">—</span></div>
       <table class="vs-table" id="x1VsTable"></table>
       <p class="x1-status" id="x1ResultReason" style="margin-top:10px;"></p>
-    </div>
-    <div class="stat-card">
+    </div></div>
+<div class="view-pane" id="screen-x1-result-pane-1" role="tabpanel" aria-labelledby="screen-x1-result-tab-1" hidden><div class="stat-card">
       <h3 id="x1TitlesAName">Títulos</h3>
       <div class="chips" id="x1TitlesA"></div>
     </div>
-    <div class="stat-card">
+<div class="stat-card">
       <h3 id="x1TitlesBName">Títulos</h3>
       <div class="chips" id="x1TitlesB"></div>
-    </div>
-    <button class="btn" id="x1BtnRematch">Nova sala</button>
-    <button class="btn ghost" id="x1BtnToHub">Menu principal</button>
-  </section>
+    </div></div></div><div class="screen-actions"><button class="btn" id="x1BtnRematch">Nova sala</button>
+<button class="btn ghost" id="x1BtnToHub">Menu principal</button></div></section>
 
   <div class="x1-timer" id="x1Timer">⏱ 5:00</div>
 
-  <footer class="foot">Simulação fictícia sem fins lucrativos. Nomes de clubes e competições usados apenas como ambientação.</footer>
+  <footer class="foot">MODO CARREIRA <span>•</span> Simulação de futebol</footer>
 </div>
 
 <script>
@@ -741,7 +769,7 @@ let x1Mode = null; // null fora do X1; objeto de estado quando uma partida X1 es
 function showScreen(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
-  window.scrollTo({top:0, behavior:"smooth"});
+  mobileScreenChanged(id);
 }
 function updateHud(){
   const hud = document.getElementById("hud");
@@ -759,9 +787,11 @@ POSITIONS.forEach(p=>{
   card.className = "pos-card";
   card.innerHTML = `<span class="pos-code">${p.code}</span><p class="pos-name">${p.name}</p><p class="pos-desc">${p.desc}</p>`;
   card.addEventListener("click", ()=>{
+    if(x1Mode && x1Mode.posPreset && p.code!==x1Mode.posPreset.code) return;
     document.querySelectorAll(".pos-card").forEach(c=>c.classList.remove("selected"));
     card.classList.add("selected");
     selectedPos = p;
+    syncPositionLock();
     document.getElementById("btnConfirmPosition").disabled = false;
   });
   posGrid.appendChild(card);
@@ -777,6 +807,7 @@ document.getElementById("btnToPosition").addEventListener("click", ()=>{
   showScreen("screen-position");
 });
 document.getElementById("btnConfirmPosition").addEventListener("click", ()=>{
+  if(x1Mode && x1Mode.posPreset) selectedPos=x1Mode.posPreset;
   if(!selectedPos) return;
   buildCountrySelect();
   showScreen("screen-country");
@@ -831,6 +862,7 @@ const YOUTH_START = 15, YOUTH_END = 17;
 const PRO_START = 18;
 
 function startPlayer(nationality, clubEntry){
+  if(x1Mode && x1Mode.posPreset) selectedPos=x1Mode.posPreset;
   const nameInput = document.getElementById("playerName").value.trim();
   const name = nameInput || "Jogador";
   const startBonus = DIVISION_BONUS[clubEntry.league.d] || 0;
@@ -2524,6 +2556,7 @@ let x1Timer = null;
 function x1Send(type, payload){ X1Net.send({type, payload: payload||{}, ts: Date.now()}); }
 
 function x1ResetUI(){
+  resetShareInvite();
   document.getElementById("x1HomeError").textContent = "";
   document.getElementById("x1JoinBox").style.display = "none";
   document.getElementById("x1CodeDisplay").textContent = "——————";
@@ -2551,11 +2584,13 @@ let x1IsHost = false;
 
 X1Net.on("room-created", (payload)=>{
   // só agora a sala está de fato registrada no servidor — antes disso, ninguém consegue entrar
+  setShareRoom(payload.code);
   document.getElementById("x1CodeDisplay").textContent = payload.code;
   document.getElementById("x1LobbyStatus").textContent = "Compartilhe esse código com seu adversário.";
 });
 
 document.getElementById("x1BtnHost").addEventListener("click", ()=>{
+  resetShareInvite();
   x1IsHost = true;
   x1Mode = {role:"host", myName:x1PlayerNameOrDefault(), myDone:false, peerDone:false, peerData:null, myData:null, posPreset:null, startAt:null};
   showScreen("screen-x1-lobby");
@@ -2581,6 +2616,7 @@ document.getElementById("x1PosMode").addEventListener("change", (e)=>{
 });
 
 document.getElementById("x1BtnCancel").addEventListener("click", ()=>{
+  resetShareInvite();
   X1Net.teardown();
   x1Mode = null;
   x1StopTimer();
@@ -2589,11 +2625,13 @@ document.getElementById("x1BtnCancel").addEventListener("click", ()=>{
 });
 
 X1Net.on("error", (payload)=>{
+  resetShareInvite();
   document.getElementById("x1HomeError").textContent = payload.message;
   document.getElementById("x1LobbyStatus").textContent = payload.message;
 });
 
 X1Net.on("connected", ()=>{
+  document.getElementById("x1BtnShare").disabled=true;
   if(!x1Mode) return;
   document.getElementById("x1LobbyStatus").textContent = "Adversário conectado!";
   x1Send("HELLO", {name:x1Mode.myName});
@@ -2606,6 +2644,7 @@ X1Net.on("connected", ()=>{
 X1Net.on("disconnected", ()=>{
   if(!x1Mode) return;
   document.getElementById("x1LobbyStatus").textContent = "O adversário saiu da sala.";
+  if(x1IsHost && shareRoomCode) document.getElementById("x1BtnShare").disabled=false;
 });
 
 X1Net.on("data", (msg)=>{
@@ -2812,6 +2851,96 @@ document.getElementById("x1BtnToHub").addEventListener("click", ()=>{
   resetCareerState();
   showScreen("screen-hub");
 });
+
+/* Mobile navigation and X1 invitations, embedded in the single HTML. */
+function setViewTab(screenId,index){
+  const buttons=document.querySelectorAll('[data-view="'+screenId+'"]');
+  buttons.forEach((button,i)=>{
+    const on=i===Number(index);
+    button.classList.toggle('active',on);button.setAttribute('aria-selected',String(on));button.tabIndex=on?0:-1;
+    document.getElementById(screenId+'-pane-'+i).hidden=!on;
+  });
+  document.getElementById(screenId+'-body').scrollTop=0;
+}
+function syncPositionLock(){
+  const preset=x1Mode && x1Mode.posPreset;
+  if(preset)selectedPos=preset;
+  posGrid.children && Array.from(posGrid.children).forEach((card,i)=>{
+    const chosen=!!(selectedPos && POSITIONS[i].code===selectedPos.code);
+    card.disabled=!!(preset && POSITIONS[i].code!==preset.code);
+    card.classList.toggle('selected',chosen);card.setAttribute('aria-pressed',String(chosen));
+  });
+}
+function mobileScreenChanged(id){
+  const body=document.getElementById(id+'-body');if(body)body.scrollTop=0;
+  setViewTab(id,0);
+  syncPositionLock();
+  const empty=document.getElementById('ntEmpty'),card=document.getElementById('ntCard');
+  if(empty)empty.hidden=card.style.display!=='none';
+  if(id==='screen-result'){
+    document.getElementById('seasonQuickOverall').textContent=document.getElementById('sOverall').textContent;
+    document.getElementById('seasonQuickRole').textContent=document.getElementById('sRole').textContent;
+  }
+  // Keep the timer in its own header row, so it cannot cover club/name controls.
+  document.getElementById('app').dataset.screen=id;
+  document.getElementById('app').classList.toggle('x1-running',!!(x1Mode && x1Mode.startAt && !x1Mode.myDone));
+  document.querySelectorAll('#'+id+' .screen-header .title').forEach(title=>{title.tabIndex=-1;title.focus({preventScroll:true});});
+}
+document.querySelectorAll('.view-tab').forEach(button=>{
+  button.addEventListener('click',()=>setViewTab(button.dataset.view,button.dataset.pane));
+  button.addEventListener('keydown',event=>{
+    const siblings=Array.from(document.querySelectorAll('[data-view="'+button.dataset.view+'"]'));
+    let next=siblings.indexOf(button);
+    if(event.key==='ArrowRight')next=(next+1)%siblings.length;
+    else if(event.key==='ArrowLeft')next=(next+siblings.length-1)%siblings.length;
+    else if(event.key==='Home')next=0;else if(event.key==='End')next=siblings.length-1;else return;
+    event.preventDefault();setViewTab(button.dataset.view,next);siblings[next].focus();
+  });
+});
+// visualViewport also handles a phone's on-screen keyboard; no scroll lock on inputs.
+if(window.visualViewport){
+  const resizeMobile=()=>{const app=document.getElementById('app');app.style.height=Math.round(window.visualViewport.height)+'px';app.classList.toggle('keyboard-open',window.visualViewport.height<window.innerHeight*.75);};
+  window.visualViewport.addEventListener('resize',resizeMobile);resizeMobile();
+}
+let shareRoomCode=null;
+function resetShareInvite(){
+  shareRoomCode=null;document.getElementById('x1BtnShare').disabled=true;
+  document.getElementById('x1ShareStatus').textContent='';document.getElementById('x1InviteManual').hidden=true;
+}
+function setShareRoom(code){shareRoomCode=code;document.getElementById('x1BtnShare').disabled=false;}
+function makeX1Invitation(code,href){
+  if(!/^[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{6}$/.test(code))throw Error('Código de sala inválido');
+  let url='';
+  if(href){const page=new URL(href);if(page.protocol==='https:'||page.protocol==='http:'){page.searchParams.set('x1',code);page.hash='';url=page.href;}}
+  return {title:'Convite para jogar X1',url,text:'Bora jogar X1 no Modo Carreira? ⚽\nCódigo da partida: '+code+'\n'+(url?'Entre pelo convite abaixo. A sala fica disponível enquanto eu estiver conectado.':'Abra o jogo e entre com esse código. A sala fica disponível enquanto eu estiver conectado.')};
+}
+async function shareX1Invitation(){
+  if(!shareRoomCode)return;
+  const status=document.getElementById('x1ShareStatus');
+  const invitation=makeX1Invitation(shareRoomCode,window.location && window.location.href);
+  const nav=typeof navigator!=='undefined'?navigator:{};
+  const text=invitation.text+(invitation.url?'\n'+invitation.url:'');
+  if(nav.share && invitation.url){
+    try{await nav.share(invitation);status.textContent='Convite compartilhado.';return;}
+    catch(error){if(error.name==='AbortError'){status.textContent='';return;}}
+  }
+  if(nav.clipboard && nav.clipboard.writeText){
+    try{await nav.clipboard.writeText(text);status.textContent=invitation.url?'Convite copiado! Cole na conversa com seu amigo.':'Código e convite copiados. O link fica disponível na versão publicada do jogo.';return;}catch(error){}
+  }
+  const manual=document.getElementById('x1InviteManual');manual.value=text;manual.hidden=false;manual.focus();manual.select();
+  status.textContent='Selecione e copie o convite abaixo para enviar ao seu amigo.';
+}
+document.getElementById('x1BtnShare').addEventListener('click',shareX1Invitation);
+function openX1Invitation(href){
+  if(!href)return false;
+  const code=(new URL(href).searchParams.get('x1')||'').toUpperCase();
+  if(!/^[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{6}$/.test(code))return false;
+  x1ResetUI();showScreen('screen-x1-home');
+  document.getElementById('x1JoinCode').value=code;document.getElementById('x1JoinBox').style.display='block';
+  document.getElementById('x1HomeError').textContent='Convite recebido! Digite seu nome e toque em Entrar na sala.';
+  return true;
+}
+if(window.location)openX1Invitation(window.location.href);
 
 })();
 
