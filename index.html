@@ -283,6 +283,15 @@ select option{background:#142338;color:var(--ink);}
 @media(min-width:700px){.training-dialog{align-items:center;}}
 @media(max-height:560px){.training-sheet{padding:13px;}.training-attribute{padding:8px;}.training-notice{padding:7px;margin-bottom:8px;}.training-heading h2{font-size:25px;}.training-tools{margin-bottom:0;}}
 
+
+.mode-opening{position:fixed;inset:0;z-index:10000;background:var(--bg);overflow:auto;padding:48px 20px;display:flex;align-items:center;justify-content:center;}
+.mode-opening-content{width:100%;max-width:540px;}
+.mode-choice{display:block;width:100%;text-align:left;padding:24px;margin:16px 0;border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--ink);text-decoration:none;font:inherit;cursor:pointer;}
+.mode-choice strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:30px;color:var(--gold);margin-bottom:8px;}
+.mode-choice span{display:block;color:var(--ink-dim);line-height:1.5;}
+.mode-choice:hover,.mode-choice:focus-visible{border-color:var(--gold);outline:2px solid var(--gold);outline-offset:3px;}
+.mode-switch{display:block;margin-bottom:12px;color:var(--gold);background:none;border:0;font:inherit;cursor:pointer;text-decoration:underline;}
+
 </style>
 </head>
 <script type="module">
@@ -340,14 +349,27 @@ window.Cloud = {
 window.dispatchEvent(new Event("cloud-ready"));
 </script>
 <body>
-<div id="app"><div class="training-tools" id="trainingTools" hidden><span>DESENVOLVIMENTO</span><button class="training-launch" id="trainingLaunch" aria-controls="trainingDialog" aria-expanded="false">Treinos</button></div>
+
+<div class="mode-opening" id="modeOpening" role="dialog" aria-modal="true" aria-labelledby="modeOpeningTitle">
+  <div class="mode-opening-content">
+    <p class="eyebrow">Modo Carreira</p>
+    <h1 class="title" id="modeOpeningTitle">Escolha seu modo</h1>
+    <p class="lead">Duas formas de viver sua carreira no futebol.</p>
+    <button type="button" class="mode-choice" id="chooseRealistic" onclick="document.getElementById('modeOpening').style.display='none';document.getElementById('app').inert=false;document.getElementById('hubNewCareer').focus();">
+      <strong>Modo realista</strong><span>Versao nova que esta em melhoria (nao jogue se nao quiser chorar)</span>
+    </button>
+    <a class="mode-choice" id="chooseLegacy" href="modo-simulado-legado.html"><strong>Modo simulado (legado)</strong><span>Modo pro Augusto chorar menos e jogar como era</span></a>
+  </div>
+</div>
+
+<div id="app" inert><div class="training-tools" id="trainingTools" hidden><span>DESENVOLVIMENTO</span><button class="training-launch" id="trainingLaunch" aria-controls="trainingDialog" aria-expanded="false">Treinos</button></div>
 
   <div class="hud" id="hud">
     <div>Idade <b id="hudAge">—</b></div>
     <div class="club-chip" id="hudClub">—</div>
   </div>
 
-  <section class="screen active" id="screen-hub"><div class="screen-header"><div class="pitchmark"></div>
+  <section class="screen active" id="screen-hub"><div class="screen-header"><button type="button" class="mode-switch" onclick="document.getElementById('modeOpening').style.display='flex';document.getElementById('app').inert=true;document.getElementById('chooseRealistic').focus();">Trocar modo · Modo realista</button><div class="pitchmark"></div>
 <p class="eyebrow">Modo Carreira</p>
 <h1 class="title" style="font-size:34px;">Seu futebol. Sua história.</h1>
 <p class="lead">Da base à glória. Cada temporada conta.</p></div><div class="screen-body" id="screen-hub-body" tabindex="0" aria-label="Conteúdo da tela"><div class="hub-grid">
